@@ -10,10 +10,10 @@ pytest tests/
 TEST_EXIT_CODE=$?
 
 echo "🎨 Führe Black-Code-Formatierung durch..."
-black stock_predictor/ scripts/ tests/
+black netflix/ scripts/ tests/
 
 echo "🔍 Führe Linting (flake8) durch..."
-flake8 stock_predictor/ scripts/ tests/
+flake8 netflix/ scripts/ tests/
 LINT_EXIT_CODE=$?
 
 if [ $TEST_EXIT_CODE -ne 0 ]; then
