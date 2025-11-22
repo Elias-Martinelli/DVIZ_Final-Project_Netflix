@@ -47,7 +47,5 @@ def load_netflixdata(input_file : str = '../data/netflix1.csv'):
 
     # Liste trennen
     df_netflix["genres_list"] = df_netflix["listed_in"].str.split(", ")
-    # Every Genre-Combination in an own row
-    df_exploded = df_netflix.explode("genres_list")
 
-    return df_netflix, df_exploded
+    return df_netflix
