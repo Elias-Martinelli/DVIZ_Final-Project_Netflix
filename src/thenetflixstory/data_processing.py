@@ -1,8 +1,10 @@
 """This module handles all the data processing parts """
 import pandas as pd
 
+from config import DATA_DIR
 
-def load_netflixdata(input_file : str = '../data/netflix1.csv'):
+
+def load_netflixdata(input_file : str = DATA_DIR / 'netflix1.csv'):
     """Loads the inputdata and transforms the columns in auseful format.
 
     Args:
