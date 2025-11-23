@@ -1,5 +1,6 @@
 """This module handles all the data processing parts """
 import pandas as pd
+import country_converter as coco
 
 from config import DATA_DIR
 
@@ -17,13 +18,28 @@ def load_netflixdata(input_file : str = DATA_DIR / 'netflix1.csv'):
                             parse_dates=['date_added'],
                             dtype={'release_year':'Int64'})
 
-    # Convert "Duration" into Seasons and Minutes (movies are in min, TV-Shows in Seasons)
-    df_netflix["duration_minutes"] = df_netflix["duration"].str.extract(
-        r"(\d+)\s*min",expand=False).astype("Int64")
-    df_netflix["seasons"] = df_netflix["duration"].str.extract(
-        r"(\d+)\s*Season", expand=False).astype("Int64")
+    df_netflix = (
+        df_netflix
+        .pipe(add_extracted_durations)
+        .pipe(add_rating_translations)
+        .pipe(add_iso3_countrynames)
+        .assign(genres_list=lambda df: df['listed_in'].str.split(", "))
+    )
 
-    # Translate Ratigns
+    return df_netflix
+
+def add_extracted_durations(df : pd.DataFrame) -> pd.DataFrame:
+    """Convert "Duration" into Seasons and Minutes (movies are in min, TV-Shows
+    in Seasons)
+    """
+    df["duration_minutes"] = df["duration"].str.extract(
+        r"(\d+)\s*min",expand=False).astype("Int64")
+    df["seasons"] = df["duration"].str.extract(
+        r"(\d+)\s*Season", expand=False).astype("Int64")
+    return df
+
+def add_rating_translations(df : pd.DataFrame) -> pd.DataFrame:
+    """ Adds the rating features for Age and its description"""
     rating_map = {
         "G": ("General Audience – alle Altersgruppen geeignet", 0),
         "PG": ("Elterliche Aufsicht empfohlen", 8),
@@ -41,13 +57,31 @@ def load_netflixdata(input_file : str = DATA_DIR / 'netflix1.csv'):
         "UR": ("Unrated / Nicht bewertet", None),
     }
 
-    # Add columns
-    df_netflix["rating_description"] = df_netflix["rating"].map(
+    # Add rating columns
+    df["rating_description"] = df["rating"].map(
         lambda x: rating_map.get(x, ("Unbekannt", None))[0])
-    df_netflix["rating_age"] = df_netflix["rating"].map(lambda x: rating_map.get(
+    df["rating_age"] = df["rating"].map(lambda x: rating_map.get(
         x, ("Unbekannt", None))[1])
+    return df
 
-    # Liste trennen
-    df_netflix["genres_list"] = df_netflix["listed_in"].str.split(", ")
 
-    return df_netflix
+def add_iso3_countrynames(df : pd.DataFrame) -> pd.DataFrame:
+    """Adds the ISO3-Countrycodes for choroplet Worldmap"""
+    # Correct problematic country-entries first
+    pre_mapping = {
+        "Soviet Union": "Russia",
+        "West Germany": "Germany",
+        'Not Given' : None
+    }
+
+    df['country_clean'] = df['country'].replace(pre_mapping)
+    valid_countries = df['country_clean'].dropna().unique()
+    iso3_mapping = dict(zip(
+        valid_countries,
+        coco.convert(names=valid_countries, to='ISO3', not_found=None)
+    ))
+
+    df['ISO3_country'] = df['country_clean'].map(iso3_mapping)
+    df.drop(columns=['country_clean'])
+
+    return df
