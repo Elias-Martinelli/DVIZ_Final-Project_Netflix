@@ -3,7 +3,7 @@ setup:
 	./setup_project.sh
 
 install:
-	pip install -r requirements.txt
+	pip install -e .
 
 # Führt Unit-Tests mit pytest im "tests/"-Verzeichnis aus
 test:
