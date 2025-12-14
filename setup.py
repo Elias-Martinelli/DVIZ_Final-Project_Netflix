@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 # Collect and merge all requirements for dev
-req_files = ['src/frontend/requirements_frontend.txt']
+req_files = ['requirements.txt']
 requirements = []
 for rfile in req_files:
     with open(rfile, encoding="UTF-8") as f:
@@ -12,7 +12,7 @@ for rfile in req_files:
 setup(
     name='TheNetflixStory',
     version='1.0.0',
-    description='The shift from traditional cinema to the series ecosystem',
+    description="What Content Ratings and Genres Reveal About the Platform's Evolution",
     author='Boris Lauper, Sven Rudbog, Elias Martinelli',
     author_email='boris.lauper@stud.hslu.ch, sven.rudbog@stud.hslu.ch,'
                  'elias.martinelli@stud.hslu.ch',
