@@ -1,0 +1,19 @@
+# Core app
+streamlit>=1.33.0
+
+# Data wrangling
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Charts
+plotly>=5.20.0
+matplotlib>=3.8.0
+
+# Streamlit + Plotly interactivity
+streamlit-plotly-events>=0.0.6
+
+# Optional (only if your data_processing uses it for country codes/names)
+pycountry>=22.3.5
+
+coco
+country_converter>=1.1.1
