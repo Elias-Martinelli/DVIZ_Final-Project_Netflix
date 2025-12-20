@@ -1,8 +1,0 @@
-# Core Libraries
-# tensorflow==2.18.0 example
-ipykernel
-streamlit
-streamlit-plotly-events # makes plotly clickable
-plotly
-pandas
-country_converter # Forp ISO3-Namecleanup
