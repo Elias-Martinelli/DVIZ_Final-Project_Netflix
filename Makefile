@@ -9,8 +9,6 @@ install:
 test:
 	pytest tests/
 
-run:
-	python run_pipeline.py --ticker MSFT --epochs 5
 
 # 🔍 Code-Qualität prüfen
 # Führt Flake8 aus, um Stil- und Syntaxprobleme in definierten Ordnern zu finden
@@ -28,7 +26,7 @@ format:
 clean:
 	find . -type f -name "*.pyc" -delete
 
-# 🐳 Docker Deployment per Shell-Skript
-docker:
-	chmod +x docker_deploy.sh
-	./docker_deploy.sh
+quarto:
+	#quarto convert notebooks/MainStory.ipynb
+	#quarto render notebooks/MainStory_wrapper.qmd
+	quarto preview notebooks/MainStory.ipynb
