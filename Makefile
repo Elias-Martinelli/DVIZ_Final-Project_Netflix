@@ -27,4 +27,6 @@ clean:
 	find . -type f -name "*.pyc" -delete
 
 quarto:
-	quarto render notebooks/MainStory.ipynb
+	#quarto convert notebooks/MainStory.ipynb
+	#quarto render notebooks/MainStory_wrapper.qmd
+	quarto preview notebooks/MainStory.ipynb
