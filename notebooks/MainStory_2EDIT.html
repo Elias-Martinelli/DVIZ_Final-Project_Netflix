@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>mainstory_2edit</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="MainStory_2EDIT_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/popper.min.js"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="MainStory_2EDIT_files/libs/quarto-html/anchor.min.js"></script>
+<link href="MainStory_2EDIT_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MainStory_2EDIT_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="MainStory_2EDIT_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="MainStory_2EDIT_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="MainStory_2EDIT_files/libs/bootstrap/bootstrap-2a3973ded051fb87e523ab3fc4010b12.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="text/javascript">
+window.PlotlyConfig = {MathJaxConfig: 'local'};
+if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+</script>
+<script type="module">import "https://cdn.plot.ly/plotly-3.3.0.min"</script>
+
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+
+
+
+
+<p align="center">
+<img src="pics/netflix_intro_logo.avif" width="800"> <br> <em>Image: From Thibault Penin on https://unsplash.com/</em>
+</p>
+<section id="netflix-unfiltered---what-content-ratings-and-genres-reveal-about-the-platforms-evolution" class="level1">
+<h1>Netflix Unfiltered - What Content Ratings and Genres Reveal About the Platform’s Evolution</h1>
+<section id="intro---our-research-question" class="level2">
+<h2 class="anchored" data-anchor-id="intro---our-research-question">Intro - Our Research Question</h2>
+<p>How has Netflix’s content strategy evolved in terms of age ratings, genres, and regional production — and what does this reveal about its shift from family entertainment to mature, globally diversified programming?</p>
+<p>Over the past decade, Netflix has transformed from a distributor of family-oriented content into one of the world’s most influential producers of mature, globally-targeted programming. But what does that shift actually look like? And how did content ratings, genres, and countries contribute to this evolution?</p>
+<p>This data story investigates the changing face of Netflix by analyzing content ratings, genre trends, and country-of-origin data from 2010 to 2024. Through a series of targeted visualizations, we reveal how the platform’s library has aged, diversified, and matured — offering insights into Netflix’s evolving strategy and target audience.</p>
+</section>
+<section id="explain-the-data-source-netflix-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="explain-the-data-source-netflix-dataset">Explain the data source (Netflix dataset)</h2>
+<p>The dataset used in this project is based on a public Netflix title catalog originally collected from Kaggle’s “Netflix Movies and TV Shows” dataset. It includes key fields such as:</p>
+<pre><code>- title, type (Movie or TV Show), rating, listed_in (genres), release_year, country</code></pre>
+<p>For this story, the dataset was:</p>
+<pre><code>- Filtered to titles released from 2010 onward, focusing on the streaming-era strategy
+
+- Cleaned to standardize ratings (e.g., TV-MA → 18+), genres (first genre extracted), and countries (first listed country)
+
+- Augmented with derived features such as simplified age_rating, numeric rating_age, and exploded genre lists (genres_list)</code></pre>
+<p>This enhanced dataset allows for consistent comparisons across formats, time periods, and audience maturity — forming the analytical backbone of the story.</p>
+</section>
+<section id="growth-by-age-rating" class="level2">
+<h2 class="anchored" data-anchor-id="growth-by-age-rating">Growth by Age Rating</h2>
+<p>Shows how 18+ and R-related content exploaded post-2015</p>
+<p>From 2010 to 2024, Netflix’s content strategy underwent a noticeable transformation. This stacked area chart shows how content volume evolved by age rating — and the shift is unmistakable. While family-oriented titles (All Ages, 6+) remained relatively stable, mature content (16+, 18+) surged significantly after 2015, eventually dominating annual releases. The stacked area layout makes this growth visually tangible: mature ratings don’t just appear more frequently — they now occupy the largest portion of the content stack. This trend marks the beginning of Netflix’s strategic pivot toward an older, more adult-focused audience.</p>
+<div id="276d8f42" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-5-output-1.png" width="949" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="composition-by-rating" class="level2">
+<h2 class="anchored" data-anchor-id="composition-by-rating">Composition by Rating</h2>
+<p>While raw title counts highlight growth, they don’t reveal how Netflix’s catalog composition evolved. This normalized stacked bar chart makes that shift visible: by treating each year as 100%, we can clearly see how the share of family content (All Ages, 6+) steadily declined — squeezed out by the rising share of mature-rated content (12+, 16+, 18+). Around 2016, the balance tips: 18+ titles become the dominant slice. By normalizing the data, we decouple volume from structure and reveal a deeper trend — Netflix didn’t just expand its library, it redefined its audience.</p>
+<div id="5250ef1d" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-6-output-1.png" width="948" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="genre-vs-rating" class="level2">
+<h2 class="anchored" data-anchor-id="genre-vs-rating">Genre vs Rating</h2>
+<p>Genres don’t just entertain — they signal intended audiences. These two heatmaps cross-reference genres with age ratings for both Movies and TV Shows, revealing clear maturity patterns. <strong>Drama, Thriller, and Horror</strong> are heavily weighted toward mature content (16+, 18+), while genres like Animation, Kids, and Family remain strongly aligned with family-friendly ratings (All Ages, 6+). By removing in-cell annotations and using color intensity alone, the heatmaps emphasize the structural divide without distraction. This visual reinforces the story’s core argument: Netflix’s shift toward mature content is not only temporal — it’s genre-driven, deliberate, and consistent across formats.</p>
+<div id="96d9c575" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-7-output-1.png" width="1093" height="950" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-7-output-2.png" width="1099" height="950" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="how-countries-shape-netflixs-shift-to-18-and-a-clear-winner-emerges" class="level2">
+<h2 class="anchored" data-anchor-id="how-countries-shape-netflixs-shift-to-18-and-a-clear-winner-emerges">How Countries Shape Netflix’s Shift to 18+… And A Clear Winner Emerges</h2>
+<p>While age ratings and genres reveal how Netflix’s catalog matured structurally, that shift is happening geographically. The United Kingdom follows with a higher proportion of mature titles, while countries like Japan and India remain below the maturity midpoint despite significant title counts. A ranking that shows a large gap between first and second place, followed by a flatter decline for all subsequent countries, can be highlighted strikingly as a bar chart.</p>
+<p>This geographic lens reinforces the story so far: Netflix’s maturation is not uniform — it’s led by Western markets, and emerging regions may still reflect older, family-focused programming strategies.</p>
+<p>Overall, the United States undoubtedly dominates the production of mature/adult films. This definitely has a strong influence on the Netflix universe in terms of mature content. But is this really simply because Hollywood strategically focuses more on older audiences?</p>
+<div id="982d5001" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-8-output-1.png" width="949" height="568" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>While maturity share shows how a country’s catalog is structured, this bar chart ranks countries by the total number of mature titles (age ≥ 17). The result is striking: the United States dominates this space, producing more than four times as many mature titles as the next-highest country. Other top contributors include the United Kingdom, India, and France — but none come close to Hollywood’s output. This reinforces a key insight: Netflix’s shift toward adult content is largely powered by U.S. production. Whether driven by audience demand, creative freedom, or platform strategy, American content sets the tone for what “mature” means on Netflix.</p>
+</section>
+<section id="popcorn-or-popporn" class="level2">
+<h2 class="anchored" data-anchor-id="popcorn-or-popporn">Popcorn or Popporn?</h2>
+<p>Now that we’ve identified the United States as the leading producer of mature content on Netflix, it’s worth asking: what does ‘mature’ really mean in this context? Is it truly about explicit content, or something else entirely?</p>
+<p>If you search the Netflix database for the keyword “sex,” a total of 18 titles appear, all of which are classified under harmless genres such as comedies, dramas, reality TV, etc. Interested readers should note at this point that there is a significant difference between “mature content” and “adult content.” The latter category does not seem to fit with Netflix’s strategy and, interestingly, is not offered at all.</p>
+<section id="on-the-trail-of-explicit-language-sex-and-dark-humor" class="level3">
+<h3 class="anchored" data-anchor-id="on-the-trail-of-explicit-language-sex-and-dark-humor">On the trail of explicit language, sex, and dark humor</h3>
+<p>Let’s search for well-known titles that may be US mature content but are rated FSK&gt;18. The search for often ambiguous animated films such as “South Park,” but also “Deadpool” or “The Wolf of Wall Street” are not even included in the Netflix database.</p>
+<p>A quick search for suspicious movie titles then gives us the following hits:</p>
+<div id="f2a042b7" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Title</th>
+<th data-quarto-table-cell-role="th">US-Rating (MAA)</th>
+<th data-quarto-table-cell-role="th">FSK-Rating</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Zack and Miri Make a Porno</td>
+<td>R - Restricted Mature/Adult</td>
+<td>FSK-16</td>
+</tr>
+<tr class="even">
+<td>American Pie 9: Girls' Rules</td>
+<td>R - Restricted Mature/Adult</td>
+<td>FSK-15</td>
+</tr>
+<tr class="odd">
+<td>Superbad</td>
+<td>R - Restricted Mature/Adult</td>
+<td>FSK-16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>(R* = ages 17 and up, only permitted with parents)</p>
+<p>This shows that…<br>
+a) on the one hand, Titles in the Netflix database are classified using a unified, predominantly US-oriented rating scheme rather than the original regional rating systems.<br>
+b) Within a unified, US-oriented rating framework, US comedy titles are classified as non-youth-rated significantly more often than comparable titles from other countries. This suggests that either US comedies more frequently contain elements that trigger restrictive classifications, or that the rating system is particularly sensitive to stylistic features prevalent in US comedy.</p>
+<p>This pattern may contribute to the perception of a paradox between restrictive classification practices and the prevalence of mature-themed comedy in US productions: <strong>hypocritical prudery is refuted by reality.</strong>. However, this interpretation goes beyond what can be directly inferred from rating data alone.</p>
+<div id="c3c32c5c" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">title</th>
+<th data-quarto-table-cell-role="th">rating</th>
+<th data-quarto-table-cell-role="th">country</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Zack and Miri Make a Porno</td>
+<td>R</td>
+<td>United States</td>
+</tr>
+<tr class="even">
+<td>American Pie 9: Girls' Rules</td>
+<td>R</td>
+<td>United States</td>
+</tr>
+<tr class="odd">
+<td>Superbad</td>
+<td>R</td>
+<td>United States</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To explore this further, we searched for a curated list of U.S. comedies with suggestive or sexual themes — all of which are marked as “R” (17+) in the dataset. These include titles like Superbad, American Pie, and Zack and Miri Make a Porno. While all are technically “mature,” they belong to mainstream comedic genres and would likely receive lower ratings in other regions. This supports the idea that Netflix’s “mature content” is partially shaped by stylistic conventions and national rating policies, especially in the U.S.</p>
+</section>
+</section>
+<section id="a-genre-based-maturity-bias" class="level2">
+<h2 class="anchored" data-anchor-id="a-genre-based-maturity-bias">A Genre-Based Maturity Bias</h2>
+<p>Genre Matters: The U.S. Labels More Content ‘Mature’ — Even in Drama and Comedy</p>
+<p>To test whether U.S. titles are consistently rated as more mature than comparable international content, we examined three genres that frequently appear in Netflix’s mature catalog: Dramas, Independent Movies, and Comedies. The chart compares the share of mature titles (age ≥17) in each genre between the U.S. and all other countries combined.</p>
+<p>The differences are clear. In every genre, the U.S. labels a larger share of content as mature. This gap is especially pronounced in Independent Movies (82% vs.&nbsp;63%) and Dramas (59% vs.&nbsp;46%). Even Comedies — often associated with lighter themes — are more likely to be rated R in the U.S. than abroad.</p>
+<p>These findings reinforce the hypothesis that rating practices in the U.S. skew more conservative, especially in how language, sexuality, and tone are treated in otherwise mainstream genres.</p>
+<div id="28b24f43" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-stdout">
+<pre><code>Percentage of mature titles by country and genre:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Dramas</th>
+<th data-quarto-table-cell-role="th">Independent Movies</th>
+<th data-quarto-table-cell-role="th">Comedies</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Other countries</th>
+<td>46.3</td>
+<td>63.1</td>
+<td>35.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">United States</th>
+<td>58.6</td>
+<td>81.9</td>
+<td>39.1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-11-output-3.png" width="949" height="567" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Furthermore this is not just the case in the United States but applies to other countries too. This Treemap show us quickly what “mature content” means int the most dominant countries, according to the US-Netflix rating.</p>
+<div id="c611e57b" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script type="text/javascript">if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script type="text/javascript">window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.0.min.js" integrity="sha256-bO3dS6yCpk9aK4gUpNELtCiDeSYvGYnK7jFI58NQnHI=" crossorigin="anonymous"></script>                <div id="0ac61487-13cf-4810-8e66-8e2cdadf34bf" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("0ac61487-13cf-4810-8e66-8e2cdadf34bf")) {                    Plotly.newPlot(                        "0ac61487-13cf-4810-8e66-8e2cdadf34bf",                        [{"branchvalues":"total","customdata":[["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Argentina"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Australia"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Austria"],["Bangladesh"],["Bangladesh"],["Bangladesh"],["Bangladesh"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Belgium"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Brazil"],["Bulgaria"],["Bulgaria"],["Bulgaria"],["Bulgaria"],["Bulgaria"],["Bulgaria"],["Bulgaria"],["Cambodia"],["Cambodia"],["Cambodia"],["Cambodia"],["Cameroon"],["Cameroon"],["Cameroon"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Canada"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["Chile"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["China"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Colombia"],["Croatia"],["Croatia"],["Croatia"],["Croatia"],["Croatia"],["Czech Republic"],["Czech Republic"],["Czech Republic"],["Czech Republic"],["Czech Republic"],["Czech Republic"],["Czech Republic"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Denmark"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Egypt"],["Finland"],["Finland"],["Finland"],["Finland"],["Finland"],["Finland"],["Finland"],["Finland"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["France"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Germany"],["Ghana"],["Ghana"],["Ghana"],["Ghana"],["Greece"],["Greece"],["Greece"],["Guatemala"],["Guatemala"],["Guatemala"],["Guatemala"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hong Kong"],["Hungary"],["Hungary"],["Hungary"],["Hungary"],["Hungary"],["Iceland"],["Iceland"],["Iceland"],["Iceland"],["Iceland"],["Iceland"],["Iceland"],["Iceland"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["India"],["Indonesia"],["Indonesia"],["Indonesia"],["Indonesia"],["Indonesia"],["Indonesia"],["Indonesia"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Ireland"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Israel"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Italy"],["Jamaica"],["Jamaica"],["Jamaica"],["Jamaica"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Japan"],["Jordan"],["Jordan"],["Jordan"],["Jordan"],["Kenya"],["Kenya"],["Kenya"],["Kenya"],["Kuwait"],["Kuwait"],["Kuwait"],["Kuwait"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Lebanon"],["Luxembourg"],["Luxembourg"],["Luxembourg"],["Luxembourg"],["Malaysia"],["Malaysia"],["Malaysia"],["Malaysia"],["Malaysia"],["Malaysia"],["Malaysia"],["Mauritius"],["Mauritius"],["Mauritius"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mexico"],["Mozambique"],["Mozambique"],["Mozambique"],["Mozambique"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["Netherlands"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["New Zealand"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Nigeria"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Norway"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Not Given"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Pakistan"],["Paraguay"],["Paraguay"],["Paraguay"],["Peru"],["Peru"],["Peru"],["Peru"],["Peru"],["Peru"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Philippines"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Poland"],["Portugal"],["Portugal"],["Portugal"],["Portugal"],["Portugal"],["Portugal"],["Portugal"],["Portugal"],["Puerto Rico"],["Puerto Rico"],["Puerto Rico"],["Puerto Rico"],["Romania"],["Romania"],["Romania"],["Romania"],["Romania"],["Romania"],["Romania"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Russia"],["Saudi Arabia"],["Saudi Arabia"],["Saudi Arabia"],["Saudi Arabia"],["Saudi Arabia"],["Saudi Arabia"],["Senegal"],["Senegal"],["Senegal"],["Senegal"],["Serbia"],["Serbia"],["Serbia"],["Serbia"],["Serbia"],["Serbia"],["Serbia"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Singapore"],["Somalia"],["Somalia"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Africa"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["South Korea"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Spain"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Sweden"],["Switzerland"],["Switzerland"],["Switzerland"],["Switzerland"],["Switzerland"],["Switzerland"],["Switzerland"],["Switzerland"],["Syria"],["Syria"],["Syria"],["Syria"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Taiwan"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Thailand"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Turkey"],["Ukraine"],["Ukraine"],["Ukraine"],["Ukraine"],["United Arab Emirates"],["United Arab Emirates"],["United Arab Emirates"],["United Arab Emirates"],["United Arab Emirates"],["United Arab Emirates"],["United Arab Emirates"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United Kingdom"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["United States"],["Uruguay"],["Uruguay"],["Uruguay"],["Uruguay"],["Uruguay"],["Uruguay"],["Uruguay"],["Vietnam"],["Vietnam"],["Vietnam"],["Vietnam"],["Vietnam"],["Vietnam"],["West Germany"],["West Germany"],["West Germany"]],"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"labels=%{label}\u003cbr\u003ecount=%{value}\u003cbr\u003eparent=%{parent}\u003cbr\u003eid=%{id}\u003cbr\u003ecountry=%{customdata[0]}\u003cextra\u003e\u003c\u002fextra\u003e","ids":["Argentina (1.6%)\u002fCult Movies","Argentina (1.6%)\u002fReality TV","Argentina (1.6%)\u002fDocumentaries","Argentina (1.6%)\u002fCrime TV Shows","Argentina (1.6%)\u002fSports Movies","Argentina (1.6%)\u002fThrillers","Argentina (1.6%)\u002fDocuseries","Argentina (1.6%)\u002fRomantic Movies","Argentina (1.6%)\u002fInternational Movies","Argentina (1.6%)\u002fHorror Movies","Argentina (1.6%)\u002fDramas","Argentina (1.6%)\u002fComedies","Argentina (1.6%)\u002fClassic & Cult TV","Argentina (1.6%)\u002fClassic Movies","Argentina (1.6%)\u002fRomantic TV Shows","Argentina (1.6%)\u002fTV Dramas","Argentina (1.6%)\u002fSpanish-Language TV Shows","Argentina (1.6%)\u002fTV Comedies","Argentina (1.6%)\u002fSci-Fi & Fantasy","Argentina (1.6%)\u002fStand-Up Comedy","Argentina (1.6%)\u002fIndependent Movies","Argentina (1.6%)\u002fLGBTQ Movies","Argentina (1.6%)","Argentina (1.6%)\u002fMusic & Musicals","Argentina (1.6%)\u002fAction & Adventure","Argentina (1.6%)\u002fInternational TV Shows","Australia (1.3%)\u002fDocuseries","Australia (1.3%)\u002fHorror Movies","Australia (1.3%)\u002fSci-Fi & Fantasy","Australia (1.3%)\u002fCult Movies","Australia (1.3%)\u002fAction & Adventure","Australia (1.3%)\u002fIndependent Movies","Australia (1.3%)\u002fClassic Movies","Australia (1.3%)\u002fStand-Up Comedy","Australia (1.3%)\u002fTV Horror","Australia (1.3%)\u002fTV Comedies","Australia (1.3%)\u002fThrillers","Australia (1.3%)\u002fTV Mysteries","Australia (1.3%)\u002fRomantic TV Shows","Australia (1.3%)\u002fReality TV","Australia (1.3%)\u002fTV Thrillers","Australia (1.3%)\u002fTV Sci-Fi & Fantasy","Australia (1.3%)\u002fCrime TV Shows","Australia (1.3%)\u002fMusic & Musicals","Australia (1.3%)\u002fDramas","Australia (1.3%)\u002fComedies","Australia (1.3%)\u002fTV Dramas","Australia (1.3%)\u002fSports Movies","Australia (1.3%)\u002fInternational TV Shows","Australia (1.3%)\u002fDocumentaries","Australia (1.3%)\u002fInternational Movies","Australia (1.3%)","Australia (1.3%)\u002fLGBTQ Movies","Austria (0.2%)\u002fDramas","Austria (0.2%)\u002fSports Movies","Austria (0.2%)\u002fIndependent Movies","Austria (0.2%)\u002fThrillers","Austria (0.2%)\u002fInternational Movies","Austria (0.2%)\u002fHorror Movies","Austria (0.2%)\u002fCrime TV Shows","Austria (0.2%)\u002fInternational TV Shows","Austria (0.2%)\u002fTV Dramas","Austria (0.2%)","Austria (0.2%)\u002fDocumentaries","Austria (0.2%)\u002fSci-Fi & Fantasy","Bangladesh (0.0%)","Bangladesh (0.0%)\u002fDramas","Bangladesh (0.0%)\u002fIndependent Movies","Bangladesh (0.0%)\u002fComedies","Belgium (0.4%)\u002fTV Action & Adventure","Belgium (0.4%)\u002fCrime TV Shows","Belgium (0.4%)\u002fThrillers","Belgium (0.4%)\u002fInternational Movies","Belgium (0.4%)\u002fTV Dramas","Belgium (0.4%)","Belgium (0.4%)\u002fInternational TV Shows","Belgium (0.4%)\u002fIndependent Movies","Belgium (0.4%)\u002fDocumentaries","Belgium (0.4%)\u002fDramas","Belgium (0.4%)\u002fTV Mysteries","Brazil (1.5%)\u002fStand-Up Comedy & Talk Shows","Brazil (1.5%)\u002fTV Dramas","Brazil (1.5%)","Brazil (1.5%)\u002fReality TV","Brazil (1.5%)\u002fStand-Up Comedy","Brazil (1.5%)\u002fIndependent Movies","Brazil (1.5%)\u002fTV Mysteries","Brazil (1.5%)\u002fDramas","Brazil (1.5%)\u002fAction & Adventure","Brazil (1.5%)\u002fTV Comedies","Brazil (1.5%)\u002fInternational Movies","Brazil (1.5%)\u002fRomantic Movies","Brazil (1.5%)\u002fTV Horror","Brazil (1.5%)\u002fSports Movies","Brazil (1.5%)\u002fDocuseries","Brazil (1.5%)\u002fRomantic TV Shows","Brazil (1.5%)\u002fMusic & Musicals","Brazil (1.5%)\u002fInternational TV Shows","Brazil (1.5%)\u002fTV Sci-Fi & Fantasy","Brazil (1.5%)\u002fLGBTQ Movies","Brazil (1.5%)\u002fCrime TV Shows","Brazil (1.5%)\u002fComedies","Brazil (1.5%)\u002fDocumentaries","Bulgaria (0.1%)\u002fAction & Adventure","Bulgaria (0.1%)","Bulgaria (0.1%)\u002fThrillers","Bulgaria (0.1%)\u002fInternational Movies","Bulgaria (0.1%)\u002fSci-Fi & Fantasy","Bulgaria (0.1%)\u002fIndependent Movies","Bulgaria (0.1%)\u002fHorror Movies","Cambodia (0.0%)\u002fInternational Movies","Cambodia (0.0%)\u002fDramas","Cambodia (0.0%)\u002fAction & Adventure","Cambodia (0.0%)","Cameroon (0.0%)\u002fInternational Movies","Cameroon (0.0%)","Cameroon (0.0%)\u002fDramas","Canada (2.9%)\u002fMovies","Canada (2.9%)\u002fTV Comedies","Canada (2.9%)\u002fSports Movies","Canada (2.9%)\u002fLGBTQ Movies","Canada (2.9%)\u002fCrime TV Shows","Canada (2.9%)\u002fTV Thrillers","Canada (2.9%)\u002fReality TV","Canada (2.9%)\u002fTV Dramas","Canada (2.9%)\u002fSci-Fi & Fantasy","Canada (2.9%)\u002fTV Action & Adventure","Canada (2.9%)\u002fInternational TV Shows","Canada (2.9%)","Canada (2.9%)\u002fTV Mysteries","Canada (2.9%)\u002fRomantic Movies","Canada (2.9%)\u002fIndependent Movies","Canada (2.9%)\u002fClassic & Cult TV","Canada (2.9%)\u002fDramas","Canada (2.9%)\u002fComedies","Canada (2.9%)\u002fCult Movies","Canada (2.9%)\u002fInternational Movies","Canada (2.9%)\u002fHorror Movies","Canada (2.9%)\u002fThrillers","Canada (2.9%)\u002fRomantic TV Shows","Canada (2.9%)\u002fAction & Adventure","Canada (2.9%)\u002fTV Horror","Canada (2.9%)\u002fDocumentaries","Canada (2.9%)\u002fMusic & Musicals","Canada (2.9%)\u002fDocuseries","Chile (0.5%)\u002fSpanish-Language TV Shows","Chile (0.5%)","Chile (0.5%)\u002fStand-Up Comedy","Chile (0.5%)\u002fComedies","Chile (0.5%)\u002fDramas","Chile (0.5%)\u002fThrillers","Chile (0.5%)\u002fInternational TV Shows","Chile (0.5%)\u002fTV Dramas","Chile (0.5%)\u002fInternational Movies","Chile (0.5%)\u002fIndependent Movies","China (0.7%)\u002fAction & Adventure","China (0.7%)\u002fThrillers","China (0.7%)\u002fDramas","China (0.7%)\u002fTV Comedies","China (0.7%)\u002fComedies","China (0.7%)\u002fTV Dramas","China (0.7%)","China (0.7%)\u002fSci-Fi & Fantasy","China (0.7%)\u002fTV Action & Adventure","China (0.7%)\u002fRomantic TV Shows","China (0.7%)\u002fRomantic Movies","China (0.7%)\u002fInternational TV Shows","China (0.7%)\u002fCrime TV Shows","China (0.7%)\u002fInternational Movies","Colombia (0.8%)\u002fComedies","Colombia (0.8%)\u002fInternational Movies","Colombia (0.8%)\u002fDramas","Colombia (0.8%)\u002fIndependent Movies","Colombia (0.8%)\u002fStand-Up Comedy","Colombia (0.8%)\u002fRomantic Movies","Colombia (0.8%)\u002fCrime TV Shows","Colombia (0.8%)\u002fStand-Up Comedy & Talk Shows","Colombia (0.8%)","Colombia (0.8%)\u002fSpanish-Language TV Shows","Colombia (0.8%)\u002fRomantic TV Shows","Colombia (0.8%)\u002fInternational TV Shows","Colombia (0.8%)\u002fTV Dramas","Croatia (0.0%)\u002fTV Dramas","Croatia (0.0%)\u002fInternational TV Shows","Croatia (0.0%)\u002fDramas","Croatia (0.0%)","Croatia (0.0%)\u002fInternational Movies","Czech Republic (0.1%)\u002fSci-Fi & Fantasy","Czech Republic (0.1%)\u002fAction & Adventure","Czech Republic (0.1%)\u002fDramas","Czech Republic (0.1%)\u002fSports Movies","Czech Republic (0.1%)\u002fDocumentaries","Czech Republic (0.1%)\u002fInternational Movies","Czech Republic (0.1%)","Denmark (0.5%)\u002fInternational TV Shows","Denmark (0.5%)\u002fCult Movies","Denmark (0.5%)\u002fCrime TV Shows","Denmark (0.5%)\u002fTV Comedies","Denmark (0.5%)\u002fSports Movies","Denmark (0.5%)\u002fTV Dramas","Denmark (0.5%)\u002fThrillers","Denmark (0.5%)\u002fDramas","Denmark (0.5%)\u002fDocumentaries","Denmark (0.5%)\u002fIndependent Movies","Denmark (0.5%)\u002fInternational Movies","Denmark (0.5%)\u002fTV Thrillers","Denmark (0.5%)\u002fTV Mysteries","Denmark (0.5%)","Egypt (1.0%)\u002fMusic & Musicals","Egypt (1.0%)","Egypt (1.0%)\u002fDramas","Egypt (1.0%)\u002fTV Dramas","Egypt (1.0%)\u002fHorror Movies","Egypt (1.0%)\u002fComedies","Egypt (1.0%)\u002fTV Comedies","Egypt (1.0%)\u002fTV Mysteries","Egypt (1.0%)\u002fInternational Movies","Egypt (1.0%)\u002fInternational TV Shows","Egypt (1.0%)\u002fClassic Movies","Egypt (1.0%)\u002fIndependent Movies","Egypt (1.0%)\u002fAction & Adventure","Egypt (1.0%)\u002fThrillers","Egypt (1.0%)\u002fRomantic Movies","Finland (0.1%)\u002fTV Dramas","Finland (0.1%)\u002fCrime TV Shows","Finland (0.1%)\u002fInternational TV Shows","Finland (0.1%)\u002fInternational Movies","Finland (0.1%)\u002fComedies","Finland (0.1%)\u002fDramas","Finland (0.1%)\u002fAction & Adventure","Finland (0.1%)","France (3.8%)\u002fDocumentaries","France (3.8%)\u002fIndependent Movies","France (3.8%)\u002fClassic Movies","France (3.8%)\u002fMusic & Musicals","France (3.8%)\u002fDocuseries","France (3.8%)\u002fStand-Up Comedy & Talk Shows","France (3.8%)\u002fRomantic Movies","France (3.8%)\u002fTV Comedies","France (3.8%)\u002fTV Mysteries","France (3.8%)\u002fLGBTQ Movies","France (3.8%)\u002fStand-Up Comedy","France (3.8%)\u002fSports Movies","France (3.8%)\u002fSci-Fi & Fantasy","France (3.8%)\u002fCrime TV Shows","France (3.8%)\u002fHorror Movies","France (3.8%)\u002fTV Horror","France (3.8%)\u002fAction & Adventure","France (3.8%)\u002fReality TV","France (3.8%)","France (3.8%)\u002fThrillers","France (3.8%)\u002fDramas","France (3.8%)\u002fTV Dramas","France (3.8%)\u002fTV Thrillers","France (3.8%)\u002fComedies","France (3.8%)\u002fTV Sci-Fi & Fantasy","France (3.8%)\u002fRomantic TV Shows","France (3.8%)\u002fTV Action & Adventure","France (3.8%)\u002fInternational TV Shows","France (3.8%)\u002fInternational Movies","Germany (1.7%)\u002fStand-Up Comedy & Talk Shows","Germany (1.7%)\u002fMusic & Musicals","Germany (1.7%)\u002fInternational TV Shows","Germany (1.7%)\u002fSci-Fi & Fantasy","Germany (1.7%)\u002fCrime TV Shows","Germany (1.7%)\u002fThrillers","Germany (1.7%)","Germany (1.7%)\u002fTV Dramas","Germany (1.7%)\u002fTV Sci-Fi & Fantasy","Germany (1.7%)\u002fInternational Movies","Germany (1.7%)\u002fRomantic TV Shows","Germany (1.7%)\u002fRomantic Movies","Germany (1.7%)\u002fCult Movies","Germany (1.7%)\u002fTV Action & Adventure","Germany (1.7%)\u002fComedies","Germany (1.7%)\u002fLGBTQ Movies","Germany (1.7%)\u002fTV Comedies","Germany (1.7%)\u002fAction & Adventure","Germany (1.7%)\u002fHorror Movies","Germany (1.7%)\u002fDramas","Germany (1.7%)\u002fDocumentaries","Germany (1.7%)\u002fIndependent Movies","Germany (1.7%)\u002fStand-Up Comedy","Germany (1.7%)\u002fTV Mysteries","Germany (1.7%)\u002fBritish TV Shows","Germany (1.7%)\u002fSports Movies","Ghana (0.1%)\u002fInternational Movies","Ghana (0.1%)\u002fDramas","Ghana (0.1%)\u002fComedies","Ghana (0.1%)","Greece (0.0%)\u002fDocumentaries","Greece (0.0%)\u002fLGBTQ Movies","Greece (0.0%)","Guatemala (0.0%)\u002fInternational Movies","Guatemala (0.0%)\u002fIndependent Movies","Guatemala (0.0%)\u002fDramas","Guatemala (0.0%)","Hong Kong (1.1%)\u002fClassic Movies","Hong Kong (1.1%)\u002fComedies","Hong Kong (1.1%)\u002fTV Comedies","Hong Kong (1.1%)\u002fAction & Adventure","Hong Kong (1.1%)\u002fThrillers","Hong Kong (1.1%)\u002fInternational TV Shows","Hong Kong (1.1%)\u002fRomantic TV Shows","Hong Kong (1.1%)","Hong Kong (1.1%)\u002fTV Dramas","Hong Kong (1.1%)\u002fInternational Movies","Hong Kong (1.1%)\u002fDramas","Hong Kong (1.1%)\u002fIndependent Movies","Hong Kong (1.1%)\u002fCult Movies","Hungary (0.1%)\u002fInternational Movies","Hungary (0.1%)\u002fRomantic Movies","Hungary (0.1%)\u002fDramas","Hungary (0.1%)\u002fAction & Adventure","Hungary (0.1%)","Iceland (0.1%)\u002fCrime TV Shows","Iceland (0.1%)\u002fTV Dramas","Iceland (0.1%)\u002fHorror Movies","Iceland (0.1%)\u002fInternational Movies","Iceland (0.1%)\u002fInternational TV Shows","Iceland (0.1%)\u002fStand-Up Comedy","Iceland (0.1%)\u002fTV Mysteries","Iceland (0.1%)","India (8.1%)\u002fLGBTQ Movies","India (8.1%)\u002fBritish TV Shows","India (8.1%)\u002fTV Dramas","India (8.1%)\u002fInternational TV Shows","India (8.1%)\u002fHorror Movies","India (8.1%)\u002fTV Mysteries","India (8.1%)\u002fTV Action & Adventure","India (8.1%)\u002fStand-Up Comedy & Talk Shows","India (8.1%)\u002fTV Shows","India (8.1%)","India (8.1%)\u002fRomantic TV Shows","India (8.1%)\u002fDocuseries","India (8.1%)\u002fTV Comedies","India (8.1%)\u002fComedies","India (8.1%)\u002fInternational Movies","India (8.1%)\u002fMusic & Musicals","India (8.1%)\u002fDocumentaries","India (8.1%)\u002fAction & Adventure","India (8.1%)\u002fTV Thrillers","India (8.1%)\u002fDramas","India (8.1%)\u002fReality TV","India (8.1%)\u002fStand-Up Comedy","India (8.1%)\u002fIndependent Movies","India (8.1%)\u002fSports Movies","India (8.1%)\u002fTV Horror","India (8.1%)\u002fRomantic Movies","India (8.1%)\u002fCrime TV Shows","India (8.1%)\u002fThrillers","India (8.1%)\u002fSci-Fi & Fantasy","Indonesia (0.5%)\u002fComedies","Indonesia (0.5%)\u002fDramas","Indonesia (0.5%)\u002fAction & Adventure","Indonesia (0.5%)\u002fInternational Movies","Indonesia (0.5%)\u002fHorror Movies","Indonesia (0.5%)","Indonesia (0.5%)\u002fRomantic Movies","Ireland (0.4%)\u002fIndependent Movies","Ireland (0.4%)\u002fTV Mysteries","Ireland (0.4%)\u002fTV Dramas","Ireland (0.4%)\u002fInternational TV Shows","Ireland (0.4%)\u002fRomantic Movies","Ireland (0.4%)\u002fTV Horror","Ireland (0.4%)\u002fDramas","Ireland (0.4%)\u002fInternational Movies","Ireland (0.4%)","Ireland (0.4%)\u002fAction & Adventure","Ireland (0.4%)\u002fTV Comedies","Ireland (0.4%)\u002fDocumentaries","Ireland (0.4%)\u002fSports Movies","Ireland (0.4%)\u002fHorror Movies","Ireland (0.4%)\u002fThrillers","Ireland (0.4%)\u002fComedies","Israel (0.4%)\u002fInternational Movies","Israel (0.4%)\u002fThrillers","Israel (0.4%)","Israel (0.4%)\u002fTV Dramas","Israel (0.4%)\u002fDocuseries","Israel (0.4%)\u002fTV Action & Adventure","Israel (0.4%)\u002fInternational TV Shows","Israel (0.4%)\u002fDramas","Israel (0.4%)\u002fAction & Adventure","Israel (0.4%)\u002fIndependent Movies","Israel (0.4%)\u002fHorror Movies","Israel (0.4%)\u002fCrime TV Shows","Israel (0.4%)\u002fSci-Fi & Fantasy","Israel (0.4%)\u002fComedies","Israel (0.4%)\u002fTV Comedies","Israel (0.4%)\u002fTV Mysteries","Italy (1.2%)\u002fIndependent Movies","Italy (1.2%)\u002fDramas","Italy (1.2%)\u002fClassic Movies","Italy (1.2%)\u002fCrime TV Shows","Italy (1.2%)\u002fTeen TV Shows","Italy (1.2%)\u002fDocuseries","Italy (1.2%)\u002fTV Comedies","Italy (1.2%)\u002fInternational Movies","Italy (1.2%)\u002fHorror Movies","Italy (1.2%)","Italy (1.2%)\u002fThrillers","Italy (1.2%)\u002fRomantic Movies","Italy (1.2%)\u002fComedies","Italy (1.2%)\u002fDocumentaries","Italy (1.2%)\u002fMusic & Musicals","Italy (1.2%)\u002fSports Movies","Italy (1.2%)\u002fInternational TV Shows","Italy (1.2%)\u002fLGBTQ Movies","Italy (1.2%)\u002fBritish TV Shows","Italy (1.2%)\u002fStand-Up Comedy","Italy (1.2%)\u002fAction & Adventure","Italy (1.2%)\u002fTV Horror","Italy (1.2%)\u002fTV Dramas","Italy (1.2%)\u002fRomantic TV Shows","Jamaica (0.0%)\u002fSports Movies","Jamaica (0.0%)\u002fDramas","Jamaica (0.0%)","Jamaica (0.0%)\u002fInternational Movies","Japan (2.6%)\u002fTV Comedies","Japan (2.6%)\u002fCrime TV Shows","Japan (2.6%)\u002fInternational TV Shows","Japan (2.6%)","Japan (2.6%)\u002fTV Dramas","Japan (2.6%)\u002fLGBTQ Movies","Japan (2.6%)\u002fAction & Adventure","Japan (2.6%)\u002fThrillers","Japan (2.6%)\u002fTeen TV Shows","Japan (2.6%)\u002fReality TV","Japan (2.6%)\u002fRomantic TV Shows","Japan (2.6%)\u002fTV Thrillers","Japan (2.6%)\u002fTV Action & Adventure","Japan (2.6%)\u002fInternational Movies","Japan (2.6%)\u002fTV Mysteries","Japan (2.6%)\u002fAnime Features","Japan (2.6%)\u002fDramas","Japan (2.6%)\u002fIndependent Movies","Japan (2.6%)\u002fTV Horror","Japan (2.6%)\u002fHorror Movies","Japan (2.6%)\u002fSci-Fi & Fantasy","Japan (2.6%)\u002fRomantic Movies","Japan (2.6%)\u002fAnime Series","Jordan (0.0%)","Jordan (0.0%)\u002fTV Mysteries","Jordan (0.0%)\u002fTV Dramas","Jordan (0.0%)\u002fInternational TV Shows","Kenya (0.0%)\u002fRomantic Movies","Kenya (0.0%)\u002fInternational Movies","Kenya (0.0%)\u002fComedies","Kenya (0.0%)","Kuwait (0.0%)\u002fComedies","Kuwait (0.0%)","Kuwait (0.0%)\u002fAction & Adventure","Kuwait (0.0%)\u002fInternational Movies","Lebanon (0.3%)\u002fInternational Movies","Lebanon (0.3%)\u002fDramas","Lebanon (0.3%)\u002fInternational TV Shows","Lebanon (0.3%)","Lebanon (0.3%)\u002fTV Dramas","Lebanon (0.3%)\u002fComedies","Lebanon (0.3%)\u002fIndependent Movies","Lebanon (0.3%)\u002fRomantic Movies","Lebanon (0.3%)\u002fDocumentaries","Luxembourg (0.0%)","Luxembourg (0.0%)\u002fCrime TV Shows","Luxembourg (0.0%)\u002fInternational TV Shows","Luxembourg (0.0%)\u002fTV Dramas","Malaysia (0.1%)\u002fKorean TV Shows","Malaysia (0.1%)\u002fRomantic TV Shows","Malaysia (0.1%)\u002fDramas","Malaysia (0.1%)","Malaysia (0.1%)\u002fInternational Movies","Malaysia (0.1%)\u002fInternational TV Shows","Malaysia (0.1%)\u002fHorror Movies","Mauritius (0.0%)\u002fInternational TV Shows","Mauritius (0.0%)\u002fTV Dramas","Mauritius (0.0%)","Mexico (2.8%)\u002fTV Comedies","Mexico (2.8%)\u002fDocuseries","Mexico (2.8%)\u002fClassic Movies","Mexico (2.8%)\u002fSports Movies","Mexico (2.8%)\u002fTV Action & Adventure","Mexico (2.8%)","Mexico (2.8%)\u002fLGBTQ Movies","Mexico (2.8%)\u002fTV Dramas","Mexico (2.8%)\u002fThrillers","Mexico (2.8%)\u002fAction & Adventure","Mexico (2.8%)\u002fInternational Movies","Mexico (2.8%)\u002fStand-Up Comedy & Talk Shows","Mexico (2.8%)\u002fHorror Movies","Mexico (2.8%)\u002fCrime TV Shows","Mexico (2.8%)\u002fInternational TV Shows","Mexico (2.8%)\u002fSpanish-Language TV Shows","Mexico (2.8%)\u002fSci-Fi & Fantasy","Mexico (2.8%)\u002fDocumentaries","Mexico (2.8%)\u002fMusic & Musicals","Mexico (2.8%)\u002fMovies","Mexico (2.8%)\u002fRomantic Movies","Mexico (2.8%)\u002fIndependent Movies","Mexico (2.8%)\u002fStand-Up Comedy","Mexico (2.8%)\u002fComedies","Mexico (2.8%)\u002fDramas","Mozambique (0.0%)\u002fThrillers","Mozambique (0.0%)","Mozambique (0.0%)\u002fDramas","Mozambique (0.0%)\u002fInternational Movies","Netherlands (0.4%)\u002fInternational Movies","Netherlands (0.4%)","Netherlands (0.4%)\u002fStand-Up Comedy","Netherlands (0.4%)\u002fTV Horror","Netherlands (0.4%)\u002fRomantic Movies","Netherlands (0.4%)\u002fDocumentaries","Netherlands (0.4%)\u002fTV Comedies","Netherlands (0.4%)\u002fComedies","Netherlands (0.4%)\u002fAction & Adventure","Netherlands (0.4%)\u002fLGBTQ Movies","Netherlands (0.4%)\u002fCrime TV Shows","Netherlands (0.4%)\u002fSci-Fi & Fantasy","Netherlands (0.4%)\u002fDramas","Netherlands (0.4%)\u002fTV Dramas","Netherlands (0.4%)\u002fInternational TV Shows","New Zealand (0.2%)\u002fAction & Adventure","New Zealand (0.2%)\u002fDocuseries","New Zealand (0.2%)","New Zealand (0.2%)\u002fClassic Movies","New Zealand (0.2%)\u002fInternational Movies","New Zealand (0.2%)\u002fDramas","New Zealand (0.2%)\u002fSports Movies","New Zealand (0.2%)\u002fIndependent Movies","New Zealand (0.2%)\u002fDocumentaries","New Zealand (0.2%)\u002fComedies","New Zealand (0.2%)\u002fInternational TV Shows","Nigeria (1.3%)\u002fIndependent Movies","Nigeria (1.3%)\u002fDocumentaries","Nigeria (1.3%)\u002fTV Dramas","Nigeria (1.3%)\u002fHorror Movies","Nigeria (1.3%)\u002fDramas","Nigeria (1.3%)\u002fFaith & Spirituality","Nigeria (1.3%)\u002fRomantic Movies","Nigeria (1.3%)\u002fMusic & Musicals","Nigeria (1.3%)\u002fInternational TV Shows","Nigeria (1.3%)\u002fTV Comedies","Nigeria (1.3%)\u002fAction & Adventure","Nigeria (1.3%)","Nigeria (1.3%)\u002fThrillers","Nigeria (1.3%)\u002fInternational Movies","Nigeria (1.3%)\u002fRomantic TV Shows","Nigeria (1.3%)\u002fComedies","Nigeria (1.3%)\u002fCrime TV Shows","Norway (0.5%)\u002fComedies","Norway (0.5%)\u002fDramas","Norway (0.5%)\u002fInternational TV Shows","Norway (0.5%)\u002fCrime TV Shows","Norway (0.5%)\u002fTV Action & Adventure","Norway (0.5%)\u002fDocumentaries","Norway (0.5%)\u002fTV Thrillers","Norway (0.5%)\u002fTV Dramas","Norway (0.5%)\u002fTV Mysteries","Norway (0.5%)\u002fInternational Movies","Norway (0.5%)","Norway (0.5%)\u002fTV Horror","Norway (0.5%)\u002fRomantic TV Shows","Norway (0.5%)\u002fTV Comedies","Norway (0.5%)\u002fHorror Movies","Norway (0.5%)\u002fAction & Adventure","Norway (0.5%)\u002fThrillers","Norway (0.5%)\u002fRomantic Movies","Not Given (2.5%)\u002fSpanish-Language TV Shows","Not Given (2.5%)\u002fMusic & Musicals","Not Given (2.5%)\u002fCult Movies","Not Given (2.5%)\u002fAnime Features","Not Given (2.5%)\u002fStand-Up Comedy","Not Given (2.5%)","Not Given (2.5%)\u002fRomantic Movies","Not Given (2.5%)\u002fTV Dramas","Not Given (2.5%)\u002fClassic & Cult TV","Not Given (2.5%)\u002fLGBTQ Movies","Not Given (2.5%)\u002fDocuseries","Not Given (2.5%)\u002fComedies","Not Given (2.5%)\u002fIndependent Movies","Not Given (2.5%)\u002fHorror Movies","Not Given (2.5%)\u002fDramas","Not Given (2.5%)\u002fThrillers","Not Given (2.5%)\u002fInternational TV Shows","Not Given (2.5%)\u002fAction & Adventure","Not Given (2.5%)\u002fTV Mysteries","Not Given (2.5%)\u002fSports Movies","Not Given (2.5%)\u002fInternational Movies","Not Given (2.5%)\u002fCrime TV Shows","Not Given (2.5%)\u002fDocumentaries","Not Given (2.5%)\u002fRomantic TV Shows","Not Given (2.5%)\u002fTV Action & Adventure","Not Given (2.5%)\u002fTV Comedies","Not Given (2.5%)\u002fStand-Up Comedy & Talk Shows","Pakistan (3.7%)\u002fKorean TV Shows","Pakistan (3.7%)\u002fTV Action & Adventure","Pakistan (3.7%)\u002fRomantic Movies","Pakistan (3.7%)\u002fScience & Nature TV","Pakistan (3.7%)\u002fSpanish-Language TV Shows","Pakistan (3.7%)\u002fTeen TV Shows","Pakistan (3.7%)\u002fInternational TV Shows","Pakistan (3.7%)","Pakistan (3.7%)\u002fTV Dramas","Pakistan (3.7%)\u002fComedies","Pakistan (3.7%)\u002fDocumentaries","Pakistan (3.7%)\u002fIndependent Movies","Pakistan (3.7%)\u002fDramas","Pakistan (3.7%)\u002fRomantic TV Shows","Pakistan (3.7%)\u002fTV Comedies","Pakistan (3.7%)\u002fStand-Up Comedy & Talk Shows","Pakistan (3.7%)\u002fAction & Adventure","Pakistan (3.7%)\u002fStand-Up Comedy","Pakistan (3.7%)\u002fReality TV","Pakistan (3.7%)\u002fInternational Movies","Pakistan (3.7%)\u002fTV Thrillers","Pakistan (3.7%)\u002fMovies","Pakistan (3.7%)\u002fAnime Series","Pakistan (3.7%)\u002fDocuseries","Pakistan (3.7%)\u002fBritish TV Shows","Pakistan (3.7%)\u002fCrime TV Shows","Pakistan (3.7%)\u002fTV Mysteries","Pakistan (3.7%)\u002fMusic & Musicals","Pakistan (3.7%)\u002fTV Sci-Fi & Fantasy","Paraguay (0.0%)","Paraguay (0.0%)\u002fAction & Adventure","Paraguay (0.0%)\u002fInternational Movies","Peru (0.1%)\u002fHorror Movies","Peru (0.1%)","Peru (0.1%)\u002fInternational Movies","Peru (0.1%)\u002fRomantic Movies","Peru (0.1%)\u002fComedies","Peru (0.1%)\u002fDramas","Philippines (1.1%)\u002fChildren & Family Movies","Philippines (1.1%)\u002fInternational Movies","Philippines (1.1%)\u002fTV Comedies","Philippines (1.1%)\u002fInternational TV Shows","Philippines (1.1%)\u002fTV Dramas","Philippines (1.1%)\u002fAnime Series","Philippines (1.1%)\u002fIndependent Movies","Philippines (1.1%)\u002fThrillers","Philippines (1.1%)\u002fRomantic Movies","Philippines (1.1%)\u002fTV Horror","Philippines (1.1%)\u002fDramas","Philippines (1.1%)\u002fComedies","Philippines (1.1%)\u002fCrime TV Shows","Philippines (1.1%)\u002fRomantic TV Shows","Philippines (1.1%)\u002fHorror Movies","Philippines (1.1%)\u002fLGBTQ Movies","Philippines (1.1%)","Philippines (1.1%)\u002fMusic & Musicals","Philippines (1.1%)\u002fAction & Adventure","Poland (0.8%)\u002fHorror Movies","Poland (0.8%)\u002fThrillers","Poland (0.8%)\u002fRomantic Movies","Poland (0.8%)\u002fTV Comedies","Poland (0.8%)\u002fDocumentaries","Poland (0.8%)","Poland (0.8%)\u002fAction & Adventure","Poland (0.8%)\u002fIndependent Movies","Poland (0.8%)\u002fInternational Movies","Poland (0.8%)\u002fDocuseries","Poland (0.8%)\u002fTV Dramas","Poland (0.8%)\u002fComedies","Poland (0.8%)\u002fDramas","Poland (0.8%)\u002fInternational TV Shows","Poland (0.8%)\u002fClassic Movies","Poland (0.8%)\u002fCrime TV Shows","Portugal (0.1%)\u002fInternational Movies","Portugal (0.1%)\u002fDramas","Portugal (0.1%)","Portugal (0.1%)\u002fComedies","Portugal (0.1%)\u002fSports Movies","Portugal (0.1%)\u002fRomantic Movies","Portugal (0.1%)\u002fIndependent Movies","Portugal (0.1%)\u002fLGBTQ Movies","Puerto Rico (0.0%)\u002fCrime TV Shows","Puerto Rico (0.0%)\u002fInternational TV Shows","Puerto Rico (0.0%)","Puerto Rico (0.0%)\u002fSpanish-Language TV Shows","Romania (0.2%)\u002fThrillers","Romania (0.2%)\u002fRomantic Movies","Romania (0.2%)\u002fMusic & Musicals","Romania (0.2%)\u002fInternational Movies","Romania (0.2%)\u002fDramas","Romania (0.2%)","Romania (0.2%)\u002fComedies","Russia (0.3%)\u002fRomantic TV Shows","Russia (0.3%)\u002fCrime TV Shows","Russia (0.3%)\u002fAction & Adventure","Russia (0.3%)\u002fInternational Movies","Russia (0.3%)\u002fInternational TV Shows","Russia (0.3%)","Russia (0.3%)\u002fSci-Fi & Fantasy","Russia (0.3%)\u002fTV Action & Adventure","Russia (0.3%)\u002fTV Mysteries","Russia (0.3%)\u002fTV Dramas","Saudi Arabia (0.1%)\u002fInternational Movies","Saudi Arabia (0.1%)\u002fComedies","Saudi Arabia (0.1%)\u002fInternational TV Shows","Saudi Arabia (0.1%)\u002fRomantic Movies","Saudi Arabia (0.1%)\u002fTV Comedies","Saudi Arabia (0.1%)","Senegal (0.0%)\u002fCrime TV Shows","Senegal (0.0%)","Senegal (0.0%)\u002fInternational TV Shows","Senegal (0.0%)\u002fTV Dramas","Serbia (0.1%)\u002fDramas","Serbia (0.1%)","Serbia (0.1%)\u002fThrillers","Serbia (0.1%)\u002fAction & Adventure","Serbia (0.1%)\u002fIndependent Movies","Serbia (0.1%)\u002fHorror Movies","Serbia (0.1%)\u002fSci-Fi & Fantasy","Singapore (0.2%)\u002fTV Dramas","Singapore (0.2%)","Singapore (0.2%)\u002fReality TV","Singapore (0.2%)\u002fDramas","Singapore (0.2%)\u002fCrime TV Shows","Singapore (0.2%)\u002fIndependent Movies","Singapore (0.2%)\u002fThrillers","Singapore (0.2%)\u002fHorror Movies","Singapore (0.2%)\u002fStand-Up Comedy","Singapore (0.2%)\u002fInternational Movies","Singapore (0.2%)\u002fAction & Adventure","Singapore (0.2%)\u002fInternational TV Shows","Somalia (0.0%)\u002fDramas","Somalia (0.0%)","South Africa (0.8%)\u002fRomantic Movies","South Africa (0.8%)\u002fInternational Movies","South Africa (0.8%)\u002fComedies","South Africa (0.8%)\u002fCrime TV Shows","South Africa (0.8%)\u002fTV Action & Adventure","South Africa (0.8%)\u002fDramas","South Africa (0.8%)\u002fStand-Up Comedy","South Africa (0.8%)\u002fInternational TV Shows","South Africa (0.8%)\u002fTV Comedies","South Africa (0.8%)\u002fAction & Adventure","South Africa (0.8%)\u002fIndependent Movies","South Africa (0.8%)\u002fSci-Fi & Fantasy","South Africa (0.8%)","South Africa (0.8%)\u002fRomantic TV Shows","South Africa (0.8%)\u002fTV Dramas","South Africa (0.8%)\u002fTV Mysteries","South Africa (0.8%)\u002fThrillers","South Korea (2.9%)\u002fAction & Adventure","South Korea (2.9%)\u002fSci-Fi & Fantasy","South Korea (2.9%)\u002fComedies","South Korea (2.9%)\u002fRomantic TV Shows","South Korea (2.9%)\u002fCult Movies","South Korea (2.9%)\u002fTV Comedies","South Korea (2.9%)","South Korea (2.9%)\u002fTV Mysteries","South Korea (2.9%)\u002fDocumentaries","South Korea (2.9%)\u002fHorror Movies","South Korea (2.9%)\u002fInternational TV Shows","South Korea (2.9%)\u002fTV Horror","South Korea (2.9%)\u002fThrillers","South Korea (2.9%)\u002fIndependent Movies","South Korea (2.9%)\u002fTV Dramas","South Korea (2.9%)\u002fKorean TV Shows","South Korea (2.9%)\u002fInternational Movies","South Korea (2.9%)\u002fStand-Up Comedy","South Korea (2.9%)\u002fRomantic Movies","South Korea (2.9%)\u002fStand-Up Comedy & Talk Shows","South Korea (2.9%)\u002fDramas","South Korea (2.9%)\u002fCrime TV Shows","South Korea (2.9%)\u002fTV Action & Adventure","Spain (4.4%)\u002fTV Comedies","Spain (4.4%)\u002fInternational TV Shows","Spain (4.4%)\u002fTV Action & Adventure","Spain (4.4%)\u002fAction & Adventure","Spain (4.4%)\u002fSports Movies","Spain (4.4%)\u002fInternational Movies","Spain (4.4%)\u002fBritish TV Shows","Spain (4.4%)\u002fLGBTQ Movies","Spain (4.4%)\u002fFaith & Spirituality","Spain (4.4%)\u002fRomantic TV Shows","Spain (4.4%)\u002fTV Dramas","Spain (4.4%)\u002fRomantic Movies","Spain (4.4%)\u002fDocuseries","Spain (4.4%)\u002fDramas","Spain (4.4%)\u002fCrime TV Shows","Spain (4.4%)\u002fHorror Movies","Spain (4.4%)","Spain (4.4%)\u002fDocumentaries","Spain (4.4%)\u002fSci-Fi & Fantasy","Spain (4.4%)\u002fMusic & Musicals","Spain (4.4%)\u002fThrillers","Spain (4.4%)\u002fStand-Up Comedy","Spain (4.4%)\u002fComedies","Spain (4.4%)\u002fTeen TV Shows","Spain (4.4%)\u002fSpanish-Language TV Shows","Spain (4.4%)\u002fReality TV","Spain (4.4%)\u002fIndependent Movies","Sweden (0.4%)\u002fStand-Up Comedy","Sweden (0.4%)\u002fMusic & Musicals","Sweden (0.4%)","Sweden (0.4%)\u002fInternational TV Shows","Sweden (0.4%)\u002fCrime TV Shows","Sweden (0.4%)\u002fComedies","Sweden (0.4%)\u002fDramas","Sweden (0.4%)\u002fInternational Movies","Sweden (0.4%)\u002fTV Dramas","Sweden (0.4%)\u002fTV Comedies","Sweden (0.4%)\u002fDocumentaries","Sweden (0.4%)\u002fRomantic TV Shows","Sweden (0.4%)\u002fThrillers","Switzerland (0.1%)\u002fTV Dramas","Switzerland (0.1%)\u002fDramas","Switzerland (0.1%)","Switzerland (0.1%)\u002fInternational Movies","Switzerland (0.1%)\u002fComedies","Switzerland (0.1%)\u002fIndependent Movies","Switzerland (0.1%)\u002fInternational TV Shows","Switzerland (0.1%)\u002fTV Comedies","Syria (0.0%)\u002fIndependent Movies","Syria (0.0%)","Syria (0.0%)\u002fDramas","Syria (0.0%)\u002fInternational Movies","Taiwan (1.1%)","Taiwan (1.1%)\u002fTeen TV Shows","Taiwan (1.1%)\u002fTV Thrillers","Taiwan (1.1%)\u002fCrime TV Shows","Taiwan (1.1%)\u002fTV Comedies","Taiwan (1.1%)\u002fLGBTQ Movies","Taiwan (1.1%)\u002fInternational TV Shows","Taiwan (1.1%)\u002fTV Dramas","Taiwan (1.1%)\u002fTV Horror","Taiwan (1.1%)\u002fDramas","Taiwan (1.1%)\u002fThrillers","Taiwan (1.1%)\u002fIndependent Movies","Taiwan (1.1%)\u002fComedies","Taiwan (1.1%)\u002fTV Action & Adventure","Taiwan (1.1%)\u002fRomantic TV Shows","Taiwan (1.1%)\u002fHorror Movies","Taiwan (1.1%)\u002fAction & Adventure","Taiwan (1.1%)\u002fInternational Movies","Thailand (1.3%)\u002fTV Action & Adventure","Thailand (1.3%)\u002fHorror Movies","Thailand (1.3%)\u002fAction & Adventure","Thailand (1.3%)\u002fFaith & Spirituality","Thailand (1.3%)\u002fDocuseries","Thailand (1.3%)\u002fTV Dramas","Thailand (1.3%)\u002fInternational TV Shows","Thailand (1.3%)","Thailand (1.3%)\u002fMusic & Musicals","Thailand (1.3%)\u002fTV Mysteries","Thailand (1.3%)\u002fRomantic TV Shows","Thailand (1.3%)\u002fDramas","Thailand (1.3%)\u002fTV Thrillers","Thailand (1.3%)\u002fCrime TV Shows","Thailand (1.3%)\u002fInternational Movies","Thailand (1.3%)\u002fRomantic Movies","Thailand (1.3%)\u002fComedies","Thailand (1.3%)\u002fLGBTQ Movies","Thailand (1.3%)\u002fSports Movies","Thailand (1.3%)\u002fDocumentaries","Thailand (1.3%)\u002fThrillers","Thailand (1.3%)\u002fTV Comedies","Thailand (1.3%)\u002fTeen TV Shows","Turkey (2.0%)\u002fComedies","Turkey (2.0%)\u002fRomantic Movies","Turkey (2.0%)\u002fAction & Adventure","Turkey (2.0%)\u002fInternational Movies","Turkey (2.0%)\u002fDramas","Turkey (2.0%)\u002fTeen TV Shows","Turkey (2.0%)\u002fTV Thrillers","Turkey (2.0%)\u002fTV Dramas","Turkey (2.0%)\u002fTV Action & Adventure","Turkey (2.0%)\u002fInternational TV Shows","Turkey (2.0%)\u002fCrime TV Shows","Turkey (2.0%)\u002fThrillers","Turkey (2.0%)\u002fHorror Movies","Turkey (2.0%)\u002fTV Mysteries","Turkey (2.0%)","Turkey (2.0%)\u002fIndependent Movies","Turkey (2.0%)\u002fRomantic TV Shows","Turkey (2.0%)\u002fTV Comedies","Turkey (2.0%)\u002fTV Horror","Turkey (2.0%)\u002fMusic & Musicals","Ukraine (0.0%)\u002fInternational TV Shows","Ukraine (0.0%)\u002fTV Dramas","Ukraine (0.0%)\u002fCrime TV Shows","Ukraine (0.0%)","United Arab Emirates (0.2%)\u002fSci-Fi & Fantasy","United Arab Emirates (0.2%)\u002fDocumentaries","United Arab Emirates (0.2%)","United Arab Emirates (0.2%)\u002fThrillers","United Arab Emirates (0.2%)\u002fComedies","United Arab Emirates (0.2%)\u002fDramas","United Arab Emirates (0.2%)\u002fInternational Movies","United Kingdom (8.1%)\u002fHorror Movies","United Kingdom (8.1%)\u002fReality TV","United Kingdom (8.1%)\u002fDramas","United Kingdom (8.1%)\u002fIndependent Movies","United Kingdom (8.1%)\u002fInternational TV Shows","United Kingdom (8.1%)\u002fDocuseries","United Kingdom (8.1%)\u002fCrime TV Shows","United Kingdom (8.1%)\u002fCult Movies","United Kingdom (8.1%)\u002fClassic Movies","United Kingdom (8.1%)\u002fDocumentaries","United Kingdom (8.1%)\u002fMusic & Musicals","United Kingdom (8.1%)\u002fSci-Fi & Fantasy","United Kingdom (8.1%)\u002fBritish TV Shows","United Kingdom (8.1%)\u002fInternational Movies","United Kingdom (8.1%)\u002fFaith & Spirituality","United Kingdom (8.1%)\u002fRomantic Movies","United Kingdom (8.1%)\u002fTV Action & Adventure","United Kingdom (8.1%)\u002fTV Sci-Fi & Fantasy","United Kingdom (8.1%)\u002fRomantic TV Shows","United Kingdom (8.1%)\u002fTV Comedies","United Kingdom (8.1%)\u002fLGBTQ Movies","United Kingdom (8.1%)\u002fTV Dramas","United Kingdom (8.1%)","United Kingdom (8.1%)\u002fTV Thrillers","United Kingdom (8.1%)\u002fClassic & Cult TV","United Kingdom (8.1%)\u002fSports Movies","United Kingdom (8.1%)\u002fStand-Up Comedy","United Kingdom (8.1%)\u002fMovies","United Kingdom (8.1%)\u002fAction & Adventure","United Kingdom (8.1%)\u002fThrillers","United Kingdom (8.1%)\u002fComedies","United Kingdom (8.1%)\u002fTV Horror","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fLGBTQ Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Sci-Fi & Fantasy","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fMusic & Musicals","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fSports Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fSpanish-Language TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fRomantic TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Comedies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fMovies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fInternational Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fIndependent Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fDramas","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Action & Adventure","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Mysteries","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Horror","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fAnime Features","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fSci-Fi & Fantasy","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Dramas","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fStand-Up Comedy","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fDocumentaries","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fReality TV","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fClassic Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTeen TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Thrillers","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fInternational TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fStand-Up Comedy & Talk Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fCrime TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fAction & Adventure","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fThrillers","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fBritish TV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fTV Shows","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fRomantic Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fDocuseries","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fComedies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fHorror Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fAnime Series","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fCult Movies","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fClassic & Cult TV","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e\u002fScience & Nature TV","Uruguay (0.2%)\u002fIndependent Movies","Uruguay (0.2%)\u002fComedies","Uruguay (0.2%)","Uruguay (0.2%)\u002fDocumentaries","Uruguay (0.2%)\u002fSports Movies","Uruguay (0.2%)\u002fInternational Movies","Uruguay (0.2%)\u002fDramas","Vietnam (0.1%)","Vietnam (0.1%)\u002fAction & Adventure","Vietnam (0.1%)\u002fDramas","Vietnam (0.1%)\u002fHorror Movies","Vietnam (0.1%)\u002fThrillers","Vietnam (0.1%)\u002fInternational Movies","West Germany (0.0%)\u002fDocumentaries","West Germany (0.0%)","West Germany (0.0%)\u002fInternational Movies"],"labels":["Cult Movies","Reality TV","Documentaries","Crime TV Shows","Sports Movies","Thrillers","Docuseries","Romantic Movies","International Movies","Horror Movies","Dramas","Comedies","Classic & Cult TV","Classic Movies","Romantic TV Shows","TV Dramas","Spanish-Language TV Shows","TV Comedies","Sci-Fi & Fantasy","Stand-Up Comedy","Independent Movies","LGBTQ Movies","Argentina (1.6%)","Music & Musicals","Action & Adventure","International TV Shows","Docuseries","Horror Movies","Sci-Fi & Fantasy","Cult Movies","Action & Adventure","Independent Movies","Classic Movies","Stand-Up Comedy","TV Horror","TV Comedies","Thrillers","TV Mysteries","Romantic TV Shows","Reality TV","TV Thrillers","TV Sci-Fi & Fantasy","Crime TV Shows","Music & Musicals","Dramas","Comedies","TV Dramas","Sports Movies","International TV Shows","Documentaries","International Movies","Australia (1.3%)","LGBTQ Movies","Dramas","Sports Movies","Independent Movies","Thrillers","International Movies","Horror Movies","Crime TV Shows","International TV Shows","TV Dramas","Austria (0.2%)","Documentaries","Sci-Fi & Fantasy","Bangladesh (0.0%)","Dramas","Independent Movies","Comedies","TV Action & Adventure","Crime TV Shows","Thrillers","International Movies","TV Dramas","Belgium (0.4%)","International TV Shows","Independent Movies","Documentaries","Dramas","TV Mysteries","Stand-Up Comedy & Talk Shows","TV Dramas","Brazil (1.5%)","Reality TV","Stand-Up Comedy","Independent Movies","TV Mysteries","Dramas","Action & Adventure","TV Comedies","International Movies","Romantic Movies","TV Horror","Sports Movies","Docuseries","Romantic TV Shows","Music & Musicals","International TV Shows","TV Sci-Fi & Fantasy","LGBTQ Movies","Crime TV Shows","Comedies","Documentaries","Action & Adventure","Bulgaria (0.1%)","Thrillers","International Movies","Sci-Fi & Fantasy","Independent Movies","Horror Movies","International Movies","Dramas","Action & Adventure","Cambodia (0.0%)","International Movies","Cameroon (0.0%)","Dramas","Movies","TV Comedies","Sports Movies","LGBTQ Movies","Crime TV Shows","TV Thrillers","Reality TV","TV Dramas","Sci-Fi & Fantasy","TV Action & Adventure","International TV Shows","Canada (2.9%)","TV Mysteries","Romantic Movies","Independent Movies","Classic & Cult TV","Dramas","Comedies","Cult Movies","International Movies","Horror Movies","Thrillers","Romantic TV Shows","Action & Adventure","TV Horror","Documentaries","Music & Musicals","Docuseries","Spanish-Language TV Shows","Chile (0.5%)","Stand-Up Comedy","Comedies","Dramas","Thrillers","International TV Shows","TV Dramas","International Movies","Independent Movies","Action & Adventure","Thrillers","Dramas","TV Comedies","Comedies","TV Dramas","China (0.7%)","Sci-Fi & Fantasy","TV Action & Adventure","Romantic TV Shows","Romantic Movies","International TV Shows","Crime TV Shows","International Movies","Comedies","International Movies","Dramas","Independent Movies","Stand-Up Comedy","Romantic Movies","Crime TV Shows","Stand-Up Comedy & Talk Shows","Colombia (0.8%)","Spanish-Language TV Shows","Romantic TV Shows","International TV Shows","TV Dramas","TV Dramas","International TV Shows","Dramas","Croatia (0.0%)","International Movies","Sci-Fi & Fantasy","Action & Adventure","Dramas","Sports Movies","Documentaries","International Movies","Czech Republic (0.1%)","International TV Shows","Cult Movies","Crime TV Shows","TV Comedies","Sports Movies","TV Dramas","Thrillers","Dramas","Documentaries","Independent Movies","International Movies","TV Thrillers","TV Mysteries","Denmark (0.5%)","Music & Musicals","Egypt (1.0%)","Dramas","TV Dramas","Horror Movies","Comedies","TV Comedies","TV Mysteries","International Movies","International TV Shows","Classic Movies","Independent Movies","Action & Adventure","Thrillers","Romantic Movies","TV Dramas","Crime TV Shows","International TV Shows","International Movies","Comedies","Dramas","Action & Adventure","Finland (0.1%)","Documentaries","Independent Movies","Classic Movies","Music & Musicals","Docuseries","Stand-Up Comedy & Talk Shows","Romantic Movies","TV Comedies","TV Mysteries","LGBTQ Movies","Stand-Up Comedy","Sports Movies","Sci-Fi & Fantasy","Crime TV Shows","Horror Movies","TV Horror","Action & Adventure","Reality TV","France (3.8%)","Thrillers","Dramas","TV Dramas","TV Thrillers","Comedies","TV Sci-Fi & Fantasy","Romantic TV Shows","TV Action & Adventure","International TV Shows","International Movies","Stand-Up Comedy & Talk Shows","Music & Musicals","International TV Shows","Sci-Fi & Fantasy","Crime TV Shows","Thrillers","Germany (1.7%)","TV Dramas","TV Sci-Fi & Fantasy","International Movies","Romantic TV Shows","Romantic Movies","Cult Movies","TV Action & Adventure","Comedies","LGBTQ Movies","TV Comedies","Action & Adventure","Horror Movies","Dramas","Documentaries","Independent Movies","Stand-Up Comedy","TV Mysteries","British TV Shows","Sports Movies","International Movies","Dramas","Comedies","Ghana (0.1%)","Documentaries","LGBTQ Movies","Greece (0.0%)","International Movies","Independent Movies","Dramas","Guatemala (0.0%)","Classic Movies","Comedies","TV Comedies","Action & Adventure","Thrillers","International TV Shows","Romantic TV Shows","Hong Kong (1.1%)","TV Dramas","International Movies","Dramas","Independent Movies","Cult Movies","International Movies","Romantic Movies","Dramas","Action & Adventure","Hungary (0.1%)","Crime TV Shows","TV Dramas","Horror Movies","International Movies","International TV Shows","Stand-Up Comedy","TV Mysteries","Iceland (0.1%)","LGBTQ Movies","British TV Shows","TV Dramas","International TV Shows","Horror Movies","TV Mysteries","TV Action & Adventure","Stand-Up Comedy & Talk Shows","TV Shows","India (8.1%)","Romantic TV Shows","Docuseries","TV Comedies","Comedies","International Movies","Music & Musicals","Documentaries","Action & Adventure","TV Thrillers","Dramas","Reality TV","Stand-Up Comedy","Independent Movies","Sports Movies","TV Horror","Romantic Movies","Crime TV Shows","Thrillers","Sci-Fi & Fantasy","Comedies","Dramas","Action & Adventure","International Movies","Horror Movies","Indonesia (0.5%)","Romantic Movies","Independent Movies","TV Mysteries","TV Dramas","International TV Shows","Romantic Movies","TV Horror","Dramas","International Movies","Ireland (0.4%)","Action & Adventure","TV Comedies","Documentaries","Sports Movies","Horror Movies","Thrillers","Comedies","International Movies","Thrillers","Israel (0.4%)","TV Dramas","Docuseries","TV Action & Adventure","International TV Shows","Dramas","Action & Adventure","Independent Movies","Horror Movies","Crime TV Shows","Sci-Fi & Fantasy","Comedies","TV Comedies","TV Mysteries","Independent Movies","Dramas","Classic Movies","Crime TV Shows","Teen TV Shows","Docuseries","TV Comedies","International Movies","Horror Movies","Italy (1.2%)","Thrillers","Romantic Movies","Comedies","Documentaries","Music & Musicals","Sports Movies","International TV Shows","LGBTQ Movies","British TV Shows","Stand-Up Comedy","Action & Adventure","TV Horror","TV Dramas","Romantic TV Shows","Sports Movies","Dramas","Jamaica (0.0%)","International Movies","TV Comedies","Crime TV Shows","International TV Shows","Japan (2.6%)","TV Dramas","LGBTQ Movies","Action & Adventure","Thrillers","Teen TV Shows","Reality TV","Romantic TV Shows","TV Thrillers","TV Action & Adventure","International Movies","TV Mysteries","Anime Features","Dramas","Independent Movies","TV Horror","Horror Movies","Sci-Fi & Fantasy","Romantic Movies","Anime Series","Jordan (0.0%)","TV Mysteries","TV Dramas","International TV Shows","Romantic Movies","International Movies","Comedies","Kenya (0.0%)","Comedies","Kuwait (0.0%)","Action & Adventure","International Movies","International Movies","Dramas","International TV Shows","Lebanon (0.3%)","TV Dramas","Comedies","Independent Movies","Romantic Movies","Documentaries","Luxembourg (0.0%)","Crime TV Shows","International TV Shows","TV Dramas","Korean TV Shows","Romantic TV Shows","Dramas","Malaysia (0.1%)","International Movies","International TV Shows","Horror Movies","International TV Shows","TV Dramas","Mauritius (0.0%)","TV Comedies","Docuseries","Classic Movies","Sports Movies","TV Action & Adventure","Mexico (2.8%)","LGBTQ Movies","TV Dramas","Thrillers","Action & Adventure","International Movies","Stand-Up Comedy & Talk Shows","Horror Movies","Crime TV Shows","International TV Shows","Spanish-Language TV Shows","Sci-Fi & Fantasy","Documentaries","Music & Musicals","Movies","Romantic Movies","Independent Movies","Stand-Up Comedy","Comedies","Dramas","Thrillers","Mozambique (0.0%)","Dramas","International Movies","International Movies","Netherlands (0.4%)","Stand-Up Comedy","TV Horror","Romantic Movies","Documentaries","TV Comedies","Comedies","Action & Adventure","LGBTQ Movies","Crime TV Shows","Sci-Fi & Fantasy","Dramas","TV Dramas","International TV Shows","Action & Adventure","Docuseries","New Zealand (0.2%)","Classic Movies","International Movies","Dramas","Sports Movies","Independent Movies","Documentaries","Comedies","International TV Shows","Independent Movies","Documentaries","TV Dramas","Horror Movies","Dramas","Faith & Spirituality","Romantic Movies","Music & Musicals","International TV Shows","TV Comedies","Action & Adventure","Nigeria (1.3%)","Thrillers","International Movies","Romantic TV Shows","Comedies","Crime TV Shows","Comedies","Dramas","International TV Shows","Crime TV Shows","TV Action & Adventure","Documentaries","TV Thrillers","TV Dramas","TV Mysteries","International Movies","Norway (0.5%)","TV Horror","Romantic TV Shows","TV Comedies","Horror Movies","Action & Adventure","Thrillers","Romantic Movies","Spanish-Language TV Shows","Music & Musicals","Cult Movies","Anime Features","Stand-Up Comedy","Not Given (2.5%)","Romantic Movies","TV Dramas","Classic & Cult TV","LGBTQ Movies","Docuseries","Comedies","Independent Movies","Horror Movies","Dramas","Thrillers","International TV Shows","Action & Adventure","TV Mysteries","Sports Movies","International Movies","Crime TV Shows","Documentaries","Romantic TV Shows","TV Action & Adventure","TV Comedies","Stand-Up Comedy & Talk Shows","Korean TV Shows","TV Action & Adventure","Romantic Movies","Science & Nature TV","Spanish-Language TV Shows","Teen TV Shows","International TV Shows","Pakistan (3.7%)","TV Dramas","Comedies","Documentaries","Independent Movies","Dramas","Romantic TV Shows","TV Comedies","Stand-Up Comedy & Talk Shows","Action & Adventure","Stand-Up Comedy","Reality TV","International Movies","TV Thrillers","Movies","Anime Series","Docuseries","British TV Shows","Crime TV Shows","TV Mysteries","Music & Musicals","TV Sci-Fi & Fantasy","Paraguay (0.0%)","Action & Adventure","International Movies","Horror Movies","Peru (0.1%)","International Movies","Romantic Movies","Comedies","Dramas","Children & Family Movies","International Movies","TV Comedies","International TV Shows","TV Dramas","Anime Series","Independent Movies","Thrillers","Romantic Movies","TV Horror","Dramas","Comedies","Crime TV Shows","Romantic TV Shows","Horror Movies","LGBTQ Movies","Philippines (1.1%)","Music & Musicals","Action & Adventure","Horror Movies","Thrillers","Romantic Movies","TV Comedies","Documentaries","Poland (0.8%)","Action & Adventure","Independent Movies","International Movies","Docuseries","TV Dramas","Comedies","Dramas","International TV Shows","Classic Movies","Crime TV Shows","International Movies","Dramas","Portugal (0.1%)","Comedies","Sports Movies","Romantic Movies","Independent Movies","LGBTQ Movies","Crime TV Shows","International TV Shows","Puerto Rico (0.0%)","Spanish-Language TV Shows","Thrillers","Romantic Movies","Music & Musicals","International Movies","Dramas","Romania (0.2%)","Comedies","Romantic TV Shows","Crime TV Shows","Action & Adventure","International Movies","International TV Shows","Russia (0.3%)","Sci-Fi & Fantasy","TV Action & Adventure","TV Mysteries","TV Dramas","International Movies","Comedies","International TV Shows","Romantic Movies","TV Comedies","Saudi Arabia (0.1%)","Crime TV Shows","Senegal (0.0%)","International TV Shows","TV Dramas","Dramas","Serbia (0.1%)","Thrillers","Action & Adventure","Independent Movies","Horror Movies","Sci-Fi & Fantasy","TV Dramas","Singapore (0.2%)","Reality TV","Dramas","Crime TV Shows","Independent Movies","Thrillers","Horror Movies","Stand-Up Comedy","International Movies","Action & Adventure","International TV Shows","Dramas","Somalia (0.0%)","Romantic Movies","International Movies","Comedies","Crime TV Shows","TV Action & Adventure","Dramas","Stand-Up Comedy","International TV Shows","TV Comedies","Action & Adventure","Independent Movies","Sci-Fi & Fantasy","South Africa (0.8%)","Romantic TV Shows","TV Dramas","TV Mysteries","Thrillers","Action & Adventure","Sci-Fi & Fantasy","Comedies","Romantic TV Shows","Cult Movies","TV Comedies","South Korea (2.9%)","TV Mysteries","Documentaries","Horror Movies","International TV Shows","TV Horror","Thrillers","Independent Movies","TV Dramas","Korean TV Shows","International Movies","Stand-Up Comedy","Romantic Movies","Stand-Up Comedy & Talk Shows","Dramas","Crime TV Shows","TV Action & Adventure","TV Comedies","International TV Shows","TV Action & Adventure","Action & Adventure","Sports Movies","International Movies","British TV Shows","LGBTQ Movies","Faith & Spirituality","Romantic TV Shows","TV Dramas","Romantic Movies","Docuseries","Dramas","Crime TV Shows","Horror Movies","Spain (4.4%)","Documentaries","Sci-Fi & Fantasy","Music & Musicals","Thrillers","Stand-Up Comedy","Comedies","Teen TV Shows","Spanish-Language TV Shows","Reality TV","Independent Movies","Stand-Up Comedy","Music & Musicals","Sweden (0.4%)","International TV Shows","Crime TV Shows","Comedies","Dramas","International Movies","TV Dramas","TV Comedies","Documentaries","Romantic TV Shows","Thrillers","TV Dramas","Dramas","Switzerland (0.1%)","International Movies","Comedies","Independent Movies","International TV Shows","TV Comedies","Independent Movies","Syria (0.0%)","Dramas","International Movies","Taiwan (1.1%)","Teen TV Shows","TV Thrillers","Crime TV Shows","TV Comedies","LGBTQ Movies","International TV Shows","TV Dramas","TV Horror","Dramas","Thrillers","Independent Movies","Comedies","TV Action & Adventure","Romantic TV Shows","Horror Movies","Action & Adventure","International Movies","TV Action & Adventure","Horror Movies","Action & Adventure","Faith & Spirituality","Docuseries","TV Dramas","International TV Shows","Thailand (1.3%)","Music & Musicals","TV Mysteries","Romantic TV Shows","Dramas","TV Thrillers","Crime TV Shows","International Movies","Romantic Movies","Comedies","LGBTQ Movies","Sports Movies","Documentaries","Thrillers","TV Comedies","Teen TV Shows","Comedies","Romantic Movies","Action & Adventure","International Movies","Dramas","Teen TV Shows","TV Thrillers","TV Dramas","TV Action & Adventure","International TV Shows","Crime TV Shows","Thrillers","Horror Movies","TV Mysteries","Turkey (2.0%)","Independent Movies","Romantic TV Shows","TV Comedies","TV Horror","Music & Musicals","International TV Shows","TV Dramas","Crime TV Shows","Ukraine (0.0%)","Sci-Fi & Fantasy","Documentaries","United Arab Emirates (0.2%)","Thrillers","Comedies","Dramas","International Movies","Horror Movies","Reality TV","Dramas","Independent Movies","International TV Shows","Docuseries","Crime TV Shows","Cult Movies","Classic Movies","Documentaries","Music & Musicals","Sci-Fi & Fantasy","British TV Shows","International Movies","Faith & Spirituality","Romantic Movies","TV Action & Adventure","TV Sci-Fi & Fantasy","Romantic TV Shows","TV Comedies","LGBTQ Movies","TV Dramas","United Kingdom (8.1%)","TV Thrillers","Classic & Cult TV","Sports Movies","Stand-Up Comedy","Movies","Action & Adventure","Thrillers","Comedies","TV Horror","LGBTQ Movies","TV Sci-Fi & Fantasy","Music & Musicals","Sports Movies","Spanish-Language TV Shows","Romantic TV Shows","TV Comedies","Movies","International Movies","Independent Movies","Dramas","TV Action & Adventure","TV Mysteries","TV Horror","Anime Features","Sci-Fi & Fantasy","TV Dramas","Stand-Up Comedy","Documentaries","Reality TV","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","Classic Movies","Teen TV Shows","TV Thrillers","International TV Shows","Stand-Up Comedy & Talk Shows","Crime TV Shows","Action & Adventure","Thrillers","British TV Shows","TV Shows","Romantic Movies","Docuseries","Comedies","Horror Movies","Anime Series","Cult Movies","Classic & Cult TV","Science & Nature TV","Independent Movies","Comedies","Uruguay (0.2%)","Documentaries","Sports Movies","International Movies","Dramas","Vietnam (0.1%)","Action & Adventure","Dramas","Horror Movies","Thrillers","International Movies","Documentaries","West Germany (0.0%)","International Movies"],"marker":{"colors":["lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey","lightgrey"]},"name":"","parents":["Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","","Argentina (1.6%)","Argentina (1.6%)","Argentina (1.6%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","Australia (1.3%)","","Australia (1.3%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","Austria (0.2%)","","Austria (0.2%)","Austria (0.2%)","","Bangladesh (0.0%)","Bangladesh (0.0%)","Bangladesh (0.0%)","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","Belgium (0.4%)","Brazil (1.5%)","Brazil (1.5%)","","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Brazil (1.5%)","Bulgaria (0.1%)","","Bulgaria (0.1%)","Bulgaria (0.1%)","Bulgaria (0.1%)","Bulgaria (0.1%)","Bulgaria (0.1%)","Cambodia (0.0%)","Cambodia (0.0%)","Cambodia (0.0%)","","Cameroon (0.0%)","","Cameroon (0.0%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Canada (2.9%)","Chile (0.5%)","","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","Chile (0.5%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","China (0.7%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Colombia (0.8%)","Croatia (0.0%)","Croatia (0.0%)","Croatia (0.0%)","","Croatia (0.0%)","Czech Republic (0.1%)","Czech Republic (0.1%)","Czech Republic (0.1%)","Czech Republic (0.1%)","Czech Republic (0.1%)","Czech Republic (0.1%)","","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","Denmark (0.5%)","","Egypt (1.0%)","","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Egypt (1.0%)","Finland (0.1%)","Finland (0.1%)","Finland (0.1%)","Finland (0.1%)","Finland (0.1%)","Finland (0.1%)","Finland (0.1%)","","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","France (3.8%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Germany (1.7%)","Ghana (0.1%)","Ghana (0.1%)","Ghana (0.1%)","","Greece (0.0%)","Greece (0.0%)","","Guatemala (0.0%)","Guatemala (0.0%)","Guatemala (0.0%)","","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hong Kong (1.1%)","Hungary (0.1%)","Hungary (0.1%)","Hungary (0.1%)","Hungary (0.1%)","","Iceland (0.1%)","Iceland (0.1%)","Iceland (0.1%)","Iceland (0.1%)","Iceland (0.1%)","Iceland (0.1%)","Iceland (0.1%)","","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","India (8.1%)","Indonesia (0.5%)","Indonesia (0.5%)","Indonesia (0.5%)","Indonesia (0.5%)","Indonesia (0.5%)","","Indonesia (0.5%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Ireland (0.4%)","Israel (0.4%)","Israel (0.4%)","","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Israel (0.4%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Italy (1.2%)","Jamaica (0.0%)","Jamaica (0.0%)","","Jamaica (0.0%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","Japan (2.6%)","","Jordan (0.0%)","Jordan (0.0%)","Jordan (0.0%)","Kenya (0.0%)","Kenya (0.0%)","Kenya (0.0%)","","Kuwait (0.0%)","","Kuwait (0.0%)","Kuwait (0.0%)","Lebanon (0.3%)","Lebanon (0.3%)","Lebanon (0.3%)","","Lebanon (0.3%)","Lebanon (0.3%)","Lebanon (0.3%)","Lebanon (0.3%)","Lebanon (0.3%)","","Luxembourg (0.0%)","Luxembourg (0.0%)","Luxembourg (0.0%)","Malaysia (0.1%)","Malaysia (0.1%)","Malaysia (0.1%)","","Malaysia (0.1%)","Malaysia (0.1%)","Malaysia (0.1%)","Mauritius (0.0%)","Mauritius (0.0%)","","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mexico (2.8%)","Mozambique (0.0%)","","Mozambique (0.0%)","Mozambique (0.0%)","Netherlands (0.4%)","","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","Netherlands (0.4%)","New Zealand (0.2%)","New Zealand (0.2%)","","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","New Zealand (0.2%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Nigeria (1.3%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Norway (0.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Not Given (2.5%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","Pakistan (3.7%)","","Paraguay (0.0%)","Paraguay (0.0%)","Peru (0.1%)","","Peru (0.1%)","Peru (0.1%)","Peru (0.1%)","Peru (0.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","Philippines (1.1%)","","Philippines (1.1%)","Philippines (1.1%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Poland (0.8%)","Portugal (0.1%)","Portugal (0.1%)","","Portugal (0.1%)","Portugal (0.1%)","Portugal (0.1%)","Portugal (0.1%)","Portugal (0.1%)","Puerto Rico (0.0%)","Puerto Rico (0.0%)","","Puerto Rico (0.0%)","Romania (0.2%)","Romania (0.2%)","Romania (0.2%)","Romania (0.2%)","Romania (0.2%)","","Romania (0.2%)","Russia (0.3%)","Russia (0.3%)","Russia (0.3%)","Russia (0.3%)","Russia (0.3%)","","Russia (0.3%)","Russia (0.3%)","Russia (0.3%)","Russia (0.3%)","Saudi Arabia (0.1%)","Saudi Arabia (0.1%)","Saudi Arabia (0.1%)","Saudi Arabia (0.1%)","Saudi Arabia (0.1%)","","Senegal (0.0%)","","Senegal (0.0%)","Senegal (0.0%)","Serbia (0.1%)","","Serbia (0.1%)","Serbia (0.1%)","Serbia (0.1%)","Serbia (0.1%)","Serbia (0.1%)","Singapore (0.2%)","","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Singapore (0.2%)","Somalia (0.0%)","","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Africa (0.8%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","South Korea (2.9%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Spain (4.4%)","Sweden (0.4%)","Sweden (0.4%)","","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Sweden (0.4%)","Switzerland (0.1%)","Switzerland (0.1%)","","Switzerland (0.1%)","Switzerland (0.1%)","Switzerland (0.1%)","Switzerland (0.1%)","Switzerland (0.1%)","Syria (0.0%)","","Syria (0.0%)","Syria (0.0%)","","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Taiwan (1.1%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Thailand (1.3%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Turkey (2.0%)","Ukraine (0.0%)","Ukraine (0.0%)","Ukraine (0.0%)","","United Arab Emirates (0.2%)","United Arab Emirates (0.2%)","","United Arab Emirates (0.2%)","United Arab Emirates (0.2%)","United Arab Emirates (0.2%)","United Arab Emirates (0.2%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","United Kingdom (8.1%)","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","\u003cb\u003eUnited States (31.4%)\u003c\u002fb\u003e","Uruguay (0.2%)","Uruguay (0.2%)","","Uruguay (0.2%)","Uruguay (0.2%)","Uruguay (0.2%)","Uruguay (0.2%)","","Vietnam (0.1%)","Vietnam (0.1%)","Vietnam (0.1%)","Vietnam (0.1%)","Vietnam (0.1%)","West Germany (0.0%)","","West Germany (0.0%)"],"values":{"dtype":"i2","bdata":"AQABAAIABwABAAcAAQACACIAAQAXAAgAAQABAAIAAgAOAAIAAQAHAAUAAQCMAAEAAQAOAAIAAQABAAEAAwAFAAIAAwABAAkABAACAAEABQABAAEABgACAAwAAQANAAEAEAAFAA0AcgADAAIAAQABAAIABQABAAEAAQABABIAAgABAAMAAQABAAEAAgAEAAIABgAGACQABwABAAEABQACAAEACwCFAAIACAAFAAUACgACAAUAGQABAAIAAgACAAEAAgAVAAIAAwAGAAsABgACAAoAAgADAAEAAQABAAEAAQABAAMAAQACAAEAAwAIAAcABAAHAAEAAQANAAYAAwAPAAABAgAJABgAAQAhABYAAwAUAA8AEgABAA8ABAAPAAIABAADACoAAwACAAkAAQAEAAQACwAFAA4AAQAKAAMAAgACAEIABAACAAIAAQAFAAEAEwAEAAUAAgABAAUAAQALAAEARQARAAMAEQACAAEAAQABAAQAAQABAAEAAQABAAEAAwAIAAcAAQABAAIAAQAGAAIABwADAAUACAABAAIALgABAFYAEAACAAIAEAABAAEAHQADAAUAAQAEAAEABAACAAIAAgACAAEAAQABAAsACQARAAIABAAFAAEABgAJAAIAAQAFAAQAAQASAAIAAwAPAAEATwEKADMAFwACABgAAQACAAUAJABMAAEAAQASAAEABwAJAJYADgABAB8AAQADAAEAAgAIAAEAAwAGAAIAFgACAAgABQABAAEAAQACAAIAAgAGAAEAAQACAAEAAQABAAMAAQAKAAEAGwABAAIAAQBfAAIAIAANAAMAAgADAAEAAwACAAkAAgADAAEAAQADAAEAAQAMAAEAAQANACAAFAABAAIAAQACANICBgADAAwAMADYAAkABAAXAAIAqQACAAUASAACAAUAGQAFACgAAQABAAgABAATAAgAKwADAAQAAQAEAAEAAQABAAcABgAnAAMAAgABAAEAAgACAAMABQACACQABAABAAQABgADAAEAAQABAAQAAQABAAEAAQADABAAAQAEAAEAAQABABkAAgBnAAMAAgAFAAMAAQADAAsAAQABAAQAAgABAAoAAgABAAEAAwABAAMACQA\u002fAOMADAABABIAAwADAAMABAACAAQAGAAEAAwABwABAAQABAABAAEALAADAAEAAQABAAEAAQABAAMAAQADAAEAAQAKAAkAAQAbAAEAAgABAAIAAQADAAEAAQABAAEAAQACAAkAAwABAAEAAQABAAIAAwABAAEAAQAEAPkAAQAGAAEAAwAvAAEAAwAYAB0AHwADAAkAAwACAAIAEAASAA0AGwABAAMAAQABAAoAIgABAAEAAQABAAEAAgABAAIAAQACAAYAAgADAAEAAQAVAAEABAAGAAEAAwACAAEAAQAEAAEABAABABsAAQADAAEABQABAAMAcgAHACUAAQARAAEAAQAEAAcAAgABAAEAAgAFAAEABgArAAEAAQADAAEAAgAEAAEAAwAKAAEAAgAKAOIABAACAAEAAwAHABIABAAHABwACAAIABEAAQADADwAAwAUAAEAAQADAAEAAQAEAAMAAQATAAEAVgBMASAAAQAGAAEABAAcABsABAABAAgAFQAHAAQAAgAGABkACAAbAAIAAgABAAIAAQABAAEABwADAAEAAQABAAEAHwABAAIAAQABAAMAAwAMAAEAGwAHAAEAAQABAAIAYgABAAIAAgAEAAIAAQABAEkAAgADABAAAQAHAAQADgAIAAIABgACAAIACQABAAEAAQABAAEAAQABAAMAAQABAAEAAQAHAAUAEgADAAEABQABAAEABwAXAAEAAQABAAUAAQABAAEAAQABAAUAAQADAAEAAQABAAcAAQABAAEAAQACAAEAEwABAAIAAQABAAMAAQABAAUAAQACAAEAAQAFABEABQACAAEACQABAAcAAgAHAAIAAgBGAAEABgABAAIADQADAAUAFAABAAUABQECAAEABAA3AAIADQABABAALgAiAAIAAQABABQADAAEAAQAKQADAAYAAwBkAAEAAgABAAUACQALAAUALwAWAAcAigEKAAQAAwAaAAEAJAABAB8AAQAOAAEAAQAmAAgAAwADAAMABgAFAAMAAQADAAEAAQADAAsAAwABAAEAAQABAAEAAwABAAEAYAABAAEABAALAAEAGAALAAEABwACAAMAAgACAAwAAwABAAoAAgAOAAcAAQABAAsADwB1AAEAAgADAAUAAQAFABsAAwAIAAEAAgABAAMAAgACACMADQADADAAEQABAAMAEQACABMABgACAAMAAgCyAAEAAwABAAEAAQABAAEAAQADAAEAAQAQAAMAAgAEAAUAEAAHAFEAKQBCABsAIgAEAAUAJQAPAA0AXQBJAAEACwACAAEACgAdAAQAEgDPAgEAAwAFABYAAQAhACQAHQABACYADgBPAC8ACwAPAGoABgASAA8BjgEnABsAHAABAC0AdwC7AMYAJgDpChYACgATABsAGgBcAKgAoQACAAQAQgBcAPEAfgAIABsAAwAOAAEAAgAOAAEAAQAFAAQACAABAAIAAQABAAMAAQACAAEA"},"type":"treemap","textinfo":"label+value+percent parent"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30}}},"legend":{"tracegroupgap":0},"title":{"text":"\u003cb\u003eMature Titles Per Country (min. age \u2265 17 years old)\u003c\u002fb\u003e","font":{"size":16,"family":"DejaVu Sans"}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('0ac61487-13cf-4810-8e66-8e2cdadf34bf');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+</section>
+<section id="genre-popularity-by-country" class="level2">
+<h2 class="anchored" data-anchor-id="genre-popularity-by-country">Genre Popularity by Country</h2>
+<p>What genres are dominant in U.S., India, UK, Japan?</p>
+<p>If you read these genre fingerprints like a heatmap, one thing becomes clear: Netflix is global — but each country has its own catalog signature.<br>
+The <strong>U.S.</strong> looks like the baseline market: broad and balanced, with no extreme peaks — just slightly more documentaries, family titles, and stand-up.<br>
+<strong>India</strong> stands out much more: it’s heavily driven by movies and drama, and a large share appears under the <strong>‘International Movies’</strong> label.<br>
+The <strong>UK</strong> has a very distinct identity through formats: <strong>British TV</strong> plus a strong focus on documentaries and docuseries.<br>
+And <strong>Japan</strong> is the most distinctive profile: <strong>anime and serialized content</strong> dominate, while classic drama and comedy tags show up far less often.</p>
+<p><strong>Netflix takeaway:</strong> Netflix isn’t one uniform global catalog — it’s a mix of <strong>local strengths</strong> and <strong>label/taxonomy effects</strong>.<br>
+Some differences are cultural (e.g., Japan/anime), while others are driven by categorization (e.g., ‘International’ vs.&nbsp;the U.S.).<br>
+Overall, the chart shows: Netflix scales globally — but <strong>local identity remains the key lever</strong> that makes each market’s offering distinct.”</p>
+<div id="0375e9e0" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="MainStory_2EDIT_files/figure-html/cell-13-output-1.png" width="1333" height="832" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion-a-global-platform-but-local-fingerprints" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-a-global-platform-but-local-fingerprints">Conclusion “A Global Platform — but Local Fingerprints”</h2>
+<p>Over the last decade, Netflix has matured — not just in volume, but in tone, genre, and structure. While age ratings and content strategies now skew heavily toward mature themes. The final chart reminds us that Netflix is not a monolith. Each major market brings its own genre fingerprint. The U.S. overrepresents Documentaries and Stand-Up Comedy. India leans heavily into International and Romantic Movies. Japan dominates in Anime, and the U.K. stands out with British TV and Docuseries. These local over-indexes show that maturity is not just about age ratings, but about cultural nuance. Netflix’s evolution is global in scale — but its strategy is shaped country by country, genre by genre.</p>
+<p>With that, the picture is complete: Netflix’s catalog isn’t just more mature — it’s more tailored. A global service with regional identities, blending mass appeal with market precision.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="MainStory_2EDIT_files/libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
