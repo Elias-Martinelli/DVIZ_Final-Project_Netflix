@@ -29,4 +29,4 @@ clean:
 quarto:
 	#quarto convert notebooks/MainStory.ipynb
 	#quarto render notebooks/MainStory_wrapper.qmd
-	quarto preview notebooks/MainStory.ipynb
+	quarto preview notebooks/MainStory_2EDIT.ipynb
